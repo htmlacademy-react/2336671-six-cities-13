@@ -28,7 +28,7 @@ function OfferScreen(): JSX.Element {
             </nav>
           </div>
         </div>
-      </header>`
+      </header>
 
       <main className="page__main page__main--offer">
         <section className="offer">
