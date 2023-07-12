@@ -9,3 +9,9 @@ export enum AppRoute {
   Offer = '/offer/:ids',
   Other = '*'
 }
+
+export enum AuthStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NOAUTH',
+  Unknown = 'UNKNOWN'
+}
