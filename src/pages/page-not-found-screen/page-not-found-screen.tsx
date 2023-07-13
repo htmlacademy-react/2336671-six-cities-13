@@ -1,5 +1,7 @@
 import Header from '../../components/header/header';
 
+import '../page-not-found-screen/page-not-found-screen.css';
+
 function PageNotFoundScreen(): JSX.Element {
   return (
     <div className="page page--favorites-empty">
@@ -8,12 +10,12 @@ function PageNotFoundScreen(): JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites favorites--empty">
             <h1 className="visually-hidden">Page Not Found</h1>
-            <div className="favorites__status-wrapper">
-              <b className="favorites__status">404 &mdash; Page Not Found</b>
-              <p className="favorites__status-description">How did you get here?</p>
-              <p className="favorites__status-description">This page does not exist!</p>
-              <form className="login__form form" action="#">
-                <button className="login__submit form__submit button" type="submit">Go Home</button>
+            <div className="notfound__status-wrapper">
+              <b className="notfound__status">404 &mdash; Page Not Found</b>
+              <p className="notfound__status-description">How did you get here?</p>
+              <p className="notfound__status-description">This page does not exist!</p>
+              <form className="notfound__form form" action="/">
+                <button className="notfound__submit form__submit button" type="submit">Go Home</button>
               </form>
             </div>
           </section>
