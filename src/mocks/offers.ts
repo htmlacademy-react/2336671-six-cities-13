@@ -1,4 +1,4 @@
-export type Offer = {
+export type Offers = {
   id: string;
   title: string;
   type: string;
@@ -22,7 +22,7 @@ export type Offer = {
   rating: number;
 }
 
-export const offersMocks: Offer[] = [
+export const offersMocks = [
   {
     id: '34f50f68-803c-43a9-8d59-9556fb9c0eaa',
     title: 'The house among olive ',

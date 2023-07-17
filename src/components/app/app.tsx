@@ -6,13 +6,13 @@ import PageNotFoundScreen from '../../pages/page-not-found-screen/page-not-found
 import PrivateRoute from '../private-route/private-route';
 import { AppRoute, AuthStatus } from '../../const';
 
-import type { Offer } from '../../mocks/offers';
+import type { Offers } from '../../mocks/offers';
 import type { ReviewComment } from '../../mocks/reviews';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 type AppScreenProps = {
-  offers: Offer[];
+  offers: Offers[];
   reviews: ReviewComment[];
 }
 

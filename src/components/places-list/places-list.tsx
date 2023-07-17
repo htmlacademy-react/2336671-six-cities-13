@@ -1,8 +1,8 @@
 import PlaceCard from '../place-card/place-card';
-import type { Offer } from '../../mocks/offers';
+import type { Offers } from '../../mocks/offers';
 
 type PlacesListProps = {
-  offersMocks: Offer[];
+  offersMocks: Offers[];
 }
 
 function PlacesList({offersMocks}: PlacesListProps): JSX.Element {

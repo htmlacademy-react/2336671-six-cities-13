@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Offer } from '../../const';
+import type { Offers } from '../../mocks/offers';
 import { toSentenceCase, calcRating } from '../../utils/common';
 
 type PlaceCardProps = {
-  offer: Offer;
+  offer: Offers;
 }
 
 function PlaceCard({offer}: PlaceCardProps): JSX.Element {
