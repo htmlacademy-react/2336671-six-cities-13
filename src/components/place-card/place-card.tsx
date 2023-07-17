@@ -1,4 +1,5 @@
 import { Offer } from '../../const';
+import { toSentenceCase } from '../../utils/common';
 
 type PlaceCardProps = {
   offer: Offer;
@@ -47,7 +48,7 @@ function PlaceCard({offer}: PlaceCardProps): JSX.Element {
         <h2 className="place-card__name">
           <a href="#">{offer.title}</a>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{toSentenceCase(offer.type)}</p>
       </div>
     </article>
   );
