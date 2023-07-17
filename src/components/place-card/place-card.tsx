@@ -1,30 +1,31 @@
+import { Link } from 'react-router-dom';
 import { Offer } from '../../const';
-import { toSentenceCase } from '../../utils/common';
+import { toSentenceCase, calcRating } from '../../utils/common';
 
 type PlaceCardProps = {
   offer: Offer;
 }
 
-function PlaceCardMark(): JSX.Element {
-  return (
+function PlaceCard({offer}: PlaceCardProps): JSX.Element {
+
+  const handleMouseOver = () => '';
+
+  const PlaceCardMark = (): JSX.Element => (
     <div className="place-card__mark">
       <span>Premium</span>
     </div>
   );
-}
 
-function calcRating(rating: number): number {
-  return (rating / 5 * 100);
-}
-
-function PlaceCard({offer}: PlaceCardProps): JSX.Element {
   return (
-    <article className="cities__card place-card">
+    <article
+      className="cities__card place-card"
+      onMouseOver={handleMouseOver}
+    >
       {offer.isPremium ? <PlaceCardMark /> : ''}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt={offer.title}/>
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -46,7 +47,7 @@ function PlaceCard({offer}: PlaceCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{offer.title}</a>
+          <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{toSentenceCase(offer.type)}</p>
       </div>

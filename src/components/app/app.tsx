@@ -9,15 +9,14 @@ import { AppRoute, AuthStatus, Offer } from '../../const';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 type AppScreenProps = {
-  placesCount: number;
   offers: Offer[];
 }
 
-function App({placesCount, offers}: AppScreenProps): JSX.Element {
+function App({offers}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root} element={<MainScreen placesCount={placesCount} offers={offers} />} />
+        <Route path={AppRoute.Root} element={<MainScreen offers={offers} />} />
         <Route path={AppRoute.Login} element={<LoginScreen />} />
         <Route
           path={AppRoute.Favorites}
