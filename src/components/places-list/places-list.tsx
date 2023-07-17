@@ -1,5 +1,5 @@
 import PlaceCard from '../place-card/place-card';
-import { Offer } from '../../const';
+import type { Offer } from '../../mocks/offers';
 
 type PlacesListProps = {
   offersMocks: Offer[];

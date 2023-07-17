@@ -7,13 +7,13 @@ import PrivateRoute from '../private-route/private-route';
 import { AppRoute, AuthStatus } from '../../const';
 
 import type { Offer } from '../../mocks/offers';
-import type { Review } from '../../mocks/reviews';
+import type { ReviewComment } from '../../mocks/reviews';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 type AppScreenProps = {
   offers: Offer[];
-  reviews: Review[];
+  reviews: ReviewComment[];
 }
 
 function App({offers, reviews}: AppScreenProps): JSX.Element {

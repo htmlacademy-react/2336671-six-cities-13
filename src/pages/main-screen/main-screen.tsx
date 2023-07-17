@@ -1,6 +1,7 @@
 import PlacesList from '../../components/places-list/places-list';
 import Header from '../../components/header/header';
-import { Offer } from '../../const';
+
+import type { Offer } from '../../mocks/offers';
 
 type MainScreenProps = {
   offers: Offer[];
