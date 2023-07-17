@@ -4,15 +4,19 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import PageNotFoundScreen from '../../pages/page-not-found-screen/page-not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import { AppRoute, AuthStatus, Offer } from '../../const';
+import { AppRoute, AuthStatus } from '../../const';
+
+import type { Offer } from '../../mocks/offers';
+import type { Review } from '../../mocks/reviews';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 type AppScreenProps = {
   offers: Offer[];
+  reviews: Review[];
 }
 
-function App({offers}: AppScreenProps): JSX.Element {
+function App({offers, reviews}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -26,7 +30,7 @@ function App({offers}: AppScreenProps): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Offer} element={<OfferScreen/>} />
+        <Route path={AppRoute.Offer} element={<OfferScreen reviews={reviews}/>} />
         <Route path={AppRoute.Other} element={<PageNotFoundScreen />} />
       </Routes>
     </BrowserRouter>

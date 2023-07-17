@@ -1,6 +1,12 @@
 import Header from '../../components/header/header';
 
-function OfferScreen(): JSX.Element {
+import type { Review } from '../../mocks/reviews';
+
+type OfferScreenProps = {
+  reviews: Review[];
+}
+
+function OfferScreen({reviews}: OfferScreenProps): JSX.Element {
   return (
     <div className="page">
       <Header />

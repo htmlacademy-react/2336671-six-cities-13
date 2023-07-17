@@ -1,4 +1,26 @@
-import { Offer } from '../const';
+export type Offer = {
+  id: string;
+  title: string;
+  type: string;
+  price: number;
+  previewImage: string;
+  city: {
+    name: string;
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
+  };
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+}
 
 export const offersMocks: Offer[] = [
   {

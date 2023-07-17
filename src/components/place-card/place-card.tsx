@@ -8,7 +8,8 @@ type PlaceCardProps = {
 
 function PlaceCard({offer}: PlaceCardProps): JSX.Element {
 
-  const handleMouseOver = () => '';
+  const handleMouseEnter = () => '';
+  const handleMouseLeave = () => '';
 
   const PlaceCardMark = (): JSX.Element => (
     <div className="place-card__mark">
@@ -19,7 +20,8 @@ function PlaceCard({offer}: PlaceCardProps): JSX.Element {
   return (
     <article
       className="cities__card place-card"
-      onMouseOver={handleMouseOver}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {offer.isPremium ? <PlaceCardMark /> : ''}
       <div className="cities__image-wrapper place-card__image-wrapper">
