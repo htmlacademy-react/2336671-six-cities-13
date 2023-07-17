@@ -1,5 +1,6 @@
+import { Offer } from '../const';
 
-export const offersMocks = [
+export const offersMocks: Offer[] = [
   {
     id: '34f50f68-803c-43a9-8d59-9556fb9c0eaa',
     title: 'The house among olive ',
@@ -19,7 +20,7 @@ export const offersMocks = [
       longitude: 2.342499,
       zoom: 16
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 1.1
   },

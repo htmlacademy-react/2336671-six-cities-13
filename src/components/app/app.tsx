@@ -4,19 +4,20 @@ import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import PageNotFoundScreen from '../../pages/page-not-found-screen/page-not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import { AppRoute, AuthStatus } from '../../const';
+import { AppRoute, AuthStatus, Offer } from '../../const';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 type AppScreenProps = {
   placesCount: number;
+  offers: Offer[];
 }
 
-function App({placesCount}: AppScreenProps): JSX.Element {
+function App({placesCount, offers}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root} element={<MainScreen placesCount={placesCount} />} />
+        <Route path={AppRoute.Root} element={<MainScreen placesCount={placesCount} offers={offers} />} />
         <Route path={AppRoute.Login} element={<LoginScreen />} />
         <Route
           path={AppRoute.Favorites}
