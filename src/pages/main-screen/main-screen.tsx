@@ -1,10 +1,10 @@
 import PlacesList from '../../components/places-list/places-list';
 import Header from '../../components/header/header';
 
-import type { Offers } from '../../mocks/offers';
+import type { ShortOffer } from '../../mocks/offers';
 
 type MainScreenProps = {
-  offers: Offers[];
+  offers: ShortOffer[];
 }
 
 function MainScreen({offers}: MainScreenProps): JSX.Element {
@@ -69,7 +69,7 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <PlacesList offersMocks={offers}/>
+              <PlacesList shortOffers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

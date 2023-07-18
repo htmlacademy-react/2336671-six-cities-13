@@ -1,3 +1,3 @@
-export const toSentenceCase = (text: string) => text.toLowerCase().charAt(0).toUpperCase() + text.slice(1);
+const MAX_STARS = 5;
 
-export const calcRating = (rating: number) => rating / 5 * 100;
+export const calcRating = (rating: number): number => Math.round(rating) / MAX_STARS * 100;

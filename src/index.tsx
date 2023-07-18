@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { offersMocks } from './mocks/offers';
+import { shortOffers } from './mocks/offers';
 import { reviewsMocks } from './mocks/reviews';
 
 const root = ReactDOM.createRoot(
@@ -10,6 +10,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App offers={offersMocks} reviews={reviewsMocks}/>
+    <App offers={shortOffers} reviews={reviewsMocks}/>
   </React.StrictMode>
 );

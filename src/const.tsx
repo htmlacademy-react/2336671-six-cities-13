@@ -11,3 +11,18 @@ export enum AuthStatus {
   NoAuth = 'NOAUTH',
   Unknown = 'UNKNOWN'
 }
+
+export const StarsRating = [
+  'perfect',
+  'good',
+  'not bad',
+  'badly',
+  'terribly',
+];
+
+export const OfferType = {
+  apartment: 'Apartment',
+  room: 'Private Room',
+  house: 'House',
+  hotel: 'Hotel',
+};

@@ -26,7 +26,7 @@ export const reviewsMocks: ReviewComment[] = [
     id: '77797f88-718b-44b4-95fd-23a9056d4cb6',
     comment: 'The house is very good, very happy, hygienic and simple living conditions around it are also very good. I hope to have the opportunity to come back. Thank you.',
     date: '2023-06-21T21:00:00.624Z',
-    rating: 4,
+    rating: 3,
     user: {
       name: 'Christina',
       avatarUrl: 'https://13.design.pages.academy/static/avatar/10.jpg',

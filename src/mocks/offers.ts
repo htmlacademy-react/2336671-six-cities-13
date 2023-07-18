@@ -1,4 +1,4 @@
-export type Offers = {
+export type ShortOffer = {
   id: string;
   title: string;
   type: string;
@@ -22,7 +22,7 @@ export type Offers = {
   rating: number;
 }
 
-export const offersMocks = [
+export const shortOffers: ShortOffer[] = [
   {
     id: '34f50f68-803c-43a9-8d59-9556fb9c0eaa',
     title: 'The house among olive ',
@@ -90,7 +90,7 @@ export const offersMocks = [
     },
     isFavorite: false,
     isPremium: false,
-    rating: 2
+    rating: 2.7
   },
   {
     id: 'da8f15d8-bbad-47d3-a91f-23b54d24bf53',
