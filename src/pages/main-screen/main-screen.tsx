@@ -3,7 +3,8 @@ import Header from '../../components/header/header';
 
 import type { ShortOffer } from '../../mocks/offers';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
+import { SortType } from '../../const';
 
 type MainScreenProps = {
   offers: ShortOffer[];
@@ -12,6 +13,7 @@ type MainScreenProps = {
 function MainScreen({offers}: MainScreenProps): JSX.Element {
 
   const [isSortOpen, setSortOpen] = useState(false);
+  const [currentSortType, setCurrentSortType] = useState('Popular');
 
   const sortClass = classNames({
     'places__options': true,
@@ -21,6 +23,25 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
 
   function handleSortClick() {
     setSortOpen((current) => !current);
+  }
+
+  function Sort(): JSX.Element {
+    return (
+      <Fragment>
+        {SortType.map((value) => (
+          <li
+            key={value}
+            className={`places__option ${currentSortType === value ? 'places__option--active' : ''}`}
+            tabIndex={0}
+            onClick={() => {
+              setCurrentSortType(value);
+              setSortOpen((current) => !current);
+            }}
+          >{value}
+          </li>
+        ))}
+      </Fragment>
+    );
   }
 
   return (
@@ -70,18 +91,15 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
+                <span className="places__sorting-caption">Sort by </span>
                 <span className="places__sorting-type" tabIndex={0} onClick={handleSortClick}>
-                  Popular
+                  {currentSortType}
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
                 <ul className={sortClass}>
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
+                  <Sort />
                 </ul>
               </form>
               <PlacesList shortOffers={offers}/>

@@ -26,3 +26,10 @@ export const OfferType = {
   house: 'House',
   hotel: 'Hotel',
 };
+
+export const SortType = [
+  'Popular',
+  'Price: low to high',
+  'Price: high to low',
+  'Top rated first'
+];
