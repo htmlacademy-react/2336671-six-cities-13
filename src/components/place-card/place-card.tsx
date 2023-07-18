@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { OfferType } from '../../const';
 import type { ShortOffer } from '../../mocks/offers';
 import { calcRating } from '../../utils/common';
+import classNames from 'classnames';
 
 type PlaceCardProps = {
   shortOffer: ShortOffer;
@@ -19,6 +20,12 @@ function PlaceCard({shortOffer}: PlaceCardProps): JSX.Element {
       <span>Premium</span>
     </div>
   );
+
+  const favClass = classNames({
+    'place-card__bookmark-button': true,
+    'place-card__bookmark-button--active': isFavorite,
+    'button': true
+  });
 
   return (
     <article
@@ -38,7 +45,7 @@ function PlaceCard({shortOffer}: PlaceCardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button">
+          <button className={favClass} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
