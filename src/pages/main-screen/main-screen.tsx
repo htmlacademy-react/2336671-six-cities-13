@@ -2,12 +2,27 @@ import PlacesList from '../../components/places-list/places-list';
 import Header from '../../components/header/header';
 
 import type { ShortOffer } from '../../mocks/offers';
+import classNames from 'classnames';
+import { useState } from 'react';
 
 type MainScreenProps = {
   offers: ShortOffer[];
 }
 
 function MainScreen({offers}: MainScreenProps): JSX.Element {
+
+  const [isSortOpen, setSortOpen] = useState(false);
+
+  const sortClass = classNames({
+    'places__options': true,
+    'places__options--custom': true,
+    'places__options--opened': isSortOpen,
+  });
+
+  function handleSortClick() {
+    setSortOpen((current) => !current);
+  }
+
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -56,13 +71,13 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
               <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
+                <span className="places__sorting-type" tabIndex={0} onClick={handleSortClick}>
                   Popular
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
-                <ul className="places__options places__options--custom places__options--opened">
+                <ul className={sortClass}>
                   <li className="places__option places__option--active" tabIndex={0}>Popular</li>
                   <li className="places__option" tabIndex={0}>Price: low to high</li>
                   <li className="places__option" tabIndex={0}>Price: high to low</li>
