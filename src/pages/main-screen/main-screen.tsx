@@ -3,8 +3,9 @@ import Header from '../../components/header/header';
 
 import type { ShortOffer } from '../../mocks/offers';
 import classNames from 'classnames';
-import { Fragment, useState } from 'react';
-import { SortType } from '../../const';
+import { useState } from 'react';
+import { SortType, CitiesList } from '../../const';
+import { Helmet } from 'react-helmet-async';
 
 type MainScreenProps = {
   offers: ShortOffer[];
@@ -14,6 +15,7 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
 
   const [isSortOpen, setSortOpen] = useState(false);
   const [currentSortType, setCurrentSortType] = useState('Popular');
+  const [city, setCity] = useState('Paris');
 
   const sortClass = classNames({
     'places__options': true,
@@ -25,9 +27,30 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
     setSortOpen((current) => !current);
   }
 
+  function Cities(): JSX.Element {
+    return (
+      <div className="tabs">
+        <section className="locations container">
+          <ul className="locations__list tabs__list">
+            {CitiesList.map((value) => (
+              <li className="locations__item" key={value} onClick={() => {
+                setCity(value);
+              }}
+              >
+                <a className={`locations__item-link tabs__item ${city === value ? 'tabs__item--active' : ''}`} href="#">
+                  <span>{value}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    );
+  }
+
   function Sort(): JSX.Element {
     return (
-      <Fragment>
+      <ul className={sortClass}>
         {SortType.map((value) => (
           <li
             key={value}
@@ -40,51 +63,19 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
           >{value}
           </li>
         ))}
-      </Fragment>
+      </ul>
     );
   }
 
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-        </div>
+        <Cities />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
@@ -98,9 +89,7 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
-                <ul className={sortClass}>
-                  <Sort />
-                </ul>
+                <Sort />
               </form>
               <PlacesList shortOffers={offers}/>
             </section>

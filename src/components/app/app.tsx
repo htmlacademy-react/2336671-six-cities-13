@@ -10,30 +10,35 @@ import type { ShortOffer } from '../../mocks/offers';
 import type { ReviewComment } from '../../mocks/reviews';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import type { OfferDetails } from '../../mocks/offerDetails';
+import { HelmetProvider } from 'react-helmet-async';
 
 type AppScreenProps = {
   offers: ShortOffer[];
   reviews: ReviewComment[];
+  offerDetails: OfferDetails;
 }
 
-function App({offers, reviews}: AppScreenProps): JSX.Element {
+function App({offers, reviews, offerDetails}: AppScreenProps): JSX.Element {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={AppRoute.Root} element={<MainScreen offers={offers} />} />
-        <Route path={AppRoute.Login} element={<LoginScreen />} />
-        <Route
-          path={AppRoute.Favorites}
-          element={
-            <PrivateRoute authStatus={AuthStatus.NoAuth}>
-              <FavoritesScreen />
-            </PrivateRoute>
-          }
-        />
-        <Route path={AppRoute.Offer} element={<OfferScreen reviews={reviews}/>} />
-        <Route path={AppRoute.Other} element={<PageNotFoundScreen />} />
-      </Routes>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path={AppRoute.Root} element={<MainScreen offers={offers} />} />
+          <Route path={AppRoute.Login} element={<LoginScreen />} />
+          <Route
+            path={AppRoute.Favorites}
+            element={
+              <PrivateRoute authStatus={AuthStatus.Auth}>
+                <FavoritesScreen />
+              </PrivateRoute>
+            }
+          />
+          <Route path={AppRoute.Offer} element={<OfferScreen reviews={reviews} offerDetails={offerDetails} nearbyPlaces={offers}/>} />
+          <Route path={AppRoute.Other} element={<PageNotFoundScreen />} />
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 

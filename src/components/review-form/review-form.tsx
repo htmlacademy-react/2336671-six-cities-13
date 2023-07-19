@@ -1,4 +1,4 @@
-import { ChangeEvent, Fragment, useState } from 'react';
+import { ChangeEvent, Fragment, MouseEvent, useState } from 'react';
 import { StarsRating } from '../../const';
 
 const MIN_CHARACTER_LENGTH = 50;
@@ -11,10 +11,14 @@ function ReviewForm():JSX.Element {
     review: '',
   });
 
-  function handleChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+  function handleFieldChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     evt.preventDefault();
     const {name, value} = evt.target;
     setFormData({...formData, [name]: value });
+  }
+
+  function handleFormSubmit(evt: MouseEvent) {
+    evt.preventDefault();
   }
 
   function Stars(): JSX.Element {
@@ -31,7 +35,7 @@ function ReviewForm():JSX.Element {
                 id={`${index}-stars`}
                 type="radio"
                 checked = {+formData.rating === index}
-                onChange={handleChange}
+                onChange={handleFieldChange}
                 required
               />
               <label
@@ -61,8 +65,8 @@ function ReviewForm():JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         minLength={MIN_CHARACTER_LENGTH}
         maxLength={MAX_CHARACTER_LENGTH}
-        onChange={handleChange}
-        value = {formData.review}
+        onChange={handleFieldChange}
+        value={formData.review}
         required
       >
       </textarea>
@@ -73,7 +77,8 @@ function ReviewForm():JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled = {!formData.rating || formData.review.length < MIN_CHARACTER_LENGTH || formData.review.length > MAX_CHARACTER_LENGTH }
+          disabled={!formData.rating || formData.review.length < MIN_CHARACTER_LENGTH || formData.review.length > MAX_CHARACTER_LENGTH }
+          onClick={handleFormSubmit}
         >
         Submit
         </button>

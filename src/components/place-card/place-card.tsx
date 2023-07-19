@@ -3,6 +3,7 @@ import { OfferType } from '../../const';
 import type { ShortOffer } from '../../mocks/offers';
 import { calcRating } from '../../utils/common';
 import classNames from 'classnames';
+import ScrollToTop from '../../utils/scroll';
 
 type PlaceCardProps = {
   shortOffer: ShortOffer;
@@ -11,7 +12,6 @@ type PlaceCardProps = {
 function PlaceCard({shortOffer}: PlaceCardProps): JSX.Element {
   const {id, title, type, price, previewImage, isFavorite, isPremium, rating} = shortOffer;
 
-  const stars = `${calcRating(rating)}%`;
   const handleMouseEnter = () => '';
   const handleMouseLeave = () => '';
 
@@ -21,11 +21,13 @@ function PlaceCard({shortOffer}: PlaceCardProps): JSX.Element {
     </div>
   );
 
-  const favClass = classNames({
-    'place-card__bookmark-button': true,
-    'place-card__bookmark-button--active': isFavorite,
-    'button': true
-  });
+  const favClass = classNames(
+    'place-card__bookmark-button',
+    {'place-card__bookmark-button--active': isFavorite},
+    'button'
+  );
+
+  ScrollToTop();
 
   return (
     <article
@@ -54,7 +56,7 @@ function PlaceCard({shortOffer}: PlaceCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${stars}`}}></span>
+            <span style={{width: `${calcRating(rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
