@@ -1,4 +1,4 @@
-import { ChangeEvent, Fragment, MouseEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
 import { StarsRating } from '../../const';
 
 const MIN_CHARACTER_LENGTH = 50;
@@ -15,10 +15,6 @@ function ReviewForm():JSX.Element {
     evt.preventDefault();
     const {name, value} = evt.target;
     setFormData({...formData, [name]: value });
-  }
-
-  function handleFormSubmit(evt: MouseEvent) {
-    evt.preventDefault();
   }
 
   function Stars(): JSX.Element {
@@ -55,7 +51,11 @@ function ReviewForm():JSX.Element {
   }
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <Stars />
       <textarea
@@ -78,7 +78,6 @@ function ReviewForm():JSX.Element {
           className="reviews__submit form__submit button"
           type="submit"
           disabled={!formData.rating || formData.review.length < MIN_CHARACTER_LENGTH || formData.review.length > MAX_CHARACTER_LENGTH }
-          onClick={handleFormSubmit}
         >
         Submit
         </button>

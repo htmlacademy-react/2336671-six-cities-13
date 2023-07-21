@@ -1,11 +1,12 @@
 import PlacesList from '../../components/places-list/places-list';
 import Header from '../../components/header/header';
+import { SortType, CitiesList } from '../../const';
+import type { ShortOffer } from '../../types/offer';
 
-import type { ShortOffer } from '../../mocks/offers';
 import classNames from 'classnames';
 import { useState } from 'react';
-import { SortType, CitiesList } from '../../const';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 
 type MainScreenProps = {
   offers: ShortOffer[];
@@ -16,6 +17,7 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
   const [isSortOpen, setSortOpen] = useState(false);
   const [currentSortType, setCurrentSortType] = useState('Popular');
   const [city, setCity] = useState('Paris');
+  const [hoveredCityId, setHoveredCityId] = useState('');
 
   const sortClass = classNames({
     'places__options': true,
@@ -37,9 +39,9 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
                 setCity(value);
               }}
               >
-                <a className={`locations__item-link tabs__item ${city === value ? 'tabs__item--active' : ''}`} href="#">
+                <Link className={`locations__item-link tabs__item ${city === value ? 'tabs__item--active' : ''}`} to="#">
                   <span>{value}</span>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -91,10 +93,10 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
                 </span>
                 <Sort />
               </form>
-              <PlacesList shortOffers={offers}/>
+              <PlacesList shortOffers={offers} setCityId={setHoveredCityId}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map" id={hoveredCityId} ></section>
             </div>
           </div>
         </div>

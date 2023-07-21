@@ -1,19 +1,20 @@
 import { Link } from 'react-router-dom';
 import { OfferType } from '../../const';
-import type { ShortOffer } from '../../mocks/offers';
+import type { ShortOffer } from '../../types/offer';
 import { calcRating } from '../../utils/common';
 import classNames from 'classnames';
 import ScrollToTop from '../../utils/scroll';
 
 type PlaceCardProps = {
   shortOffer: ShortOffer;
+  setCityId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function PlaceCard({shortOffer}: PlaceCardProps): JSX.Element {
+function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
   const {id, title, type, price, previewImage, isFavorite, isPremium, rating} = shortOffer;
 
-  const handleMouseEnter = () => '';
-  const handleMouseLeave = () => '';
+  const handleMouseEnter = (cityId: string) => setCityId(cityId);
+  const handleMouseLeave = () => setCityId('');
 
   const PlaceCardMark = (): JSX.Element => (
     <div className="place-card__mark">
@@ -32,7 +33,7 @@ function PlaceCard({shortOffer}: PlaceCardProps): JSX.Element {
   return (
     <article
       className="cities__card place-card"
-      onMouseEnter={handleMouseEnter}
+      onMouseEnter={() => handleMouseEnter(id)}
       onMouseLeave={handleMouseLeave}
     >
       {isPremium && <PlaceCardMark />}

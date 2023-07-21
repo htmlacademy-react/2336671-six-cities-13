@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Header from '../../components/header/header';
 
 import styles from './page-not-found-screen.module.css';
@@ -23,9 +24,9 @@ function PageNotFoundScreen(): JSX.Element {
         </div>
       </main>
       <footer className="footer">
-        <a className="footer__logo-link" href="main.html">
+        <Link className="footer__logo-link" to="/">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-        </a>
+        </Link>
       </footer>
     </div>
   );

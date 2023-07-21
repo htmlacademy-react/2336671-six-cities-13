@@ -1,14 +1,4 @@
-export type ReviewComment = {
-  id: string;
-  comment: string;
-  date: string;
-  rating: number;
-  user: {
-    name: string;
-    avatarUrl: string;
-    isPro: boolean;
-  };
-}
+import type { ReviewComment } from '../types/review';
 
 export const reviewsMocks: ReviewComment[] = [
   {

@@ -1,35 +1,4 @@
-export type OfferDetails = {
-  id: string;
-  title: string;
-  description: string;
-  type: string;
-  price: number;
-  images: string[];
-  city: {
-      name: string;
-      location: {
-          latitude: number;
-          longitude: number;
-          zoom: number;
-      };
-  };
-  location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-  };
-  goods: string[];
-  host: {
-    isPro: boolean;
-    name: string;
-    avatarUrl: string;
-  };
-  isPremium: boolean;
-  isFavorite: boolean;
-  rating: number;
-  bedrooms: number;
-  maxAdults: number;
-}
+import type { OfferDetails } from '../types/offer-details';
 
 export const offerDetails: OfferDetails = {
   id: 'cc86c284-5f68-4393-94f1-888b054e31d2',

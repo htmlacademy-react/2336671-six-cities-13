@@ -1,15 +1,15 @@
 import Header from '../../components/header/header';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
-import type { OfferDetails } from '../../mocks/offerDetails';
 import { OfferType } from '../../const';
-
-import type { ReviewComment } from '../../mocks/reviews';
+import type { OfferDetails } from '../../types/offer-details';
+import type { ReviewComment } from '../../types/review';
+import type { ShortOffer } from '../../types/offer';
 import { calcRating } from '../../utils/common';
 import classNames from 'classnames';
-import { ShortOffer } from '../../mocks/offers';
 import PlaceCard from '../../components/place-card/place-card';
 import { Helmet } from 'react-helmet-async';
+import { useState } from 'react';
 
 type OfferScreenProps = {
   offerDetails: OfferDetails;
@@ -18,10 +18,10 @@ type OfferScreenProps = {
 }
 
 function OfferScreen({reviews, offerDetails, nearbyPlaces}: OfferScreenProps): JSX.Element {
-  const {title, description, type, price, bedrooms, maxAdults, rating, isPremium, isFavorite, goods, host, images} = offerDetails;
+  const {title, description, type, price, bedrooms, maxAdults, rating, isPremium, isFavorite, goods, host, images, id} = offerDetails;
 
-  const randomPlaces = nearbyPlaces.sort(() => 0.5 - Math.random());
-  const threePlaces = randomPlaces.slice(0, 3);
+  const [currentCityId] = useState(id);
+  const [hoveredCityId, setHoverCityId] = useState('');
 
   const favClass = classNames(
     'offer__bookmark-button', 'button',
@@ -157,13 +157,13 @@ function OfferScreen({reviews, offerDetails, nearbyPlaces}: OfferScreenProps): J
               </section>
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <section className="offer__map map" id={hoveredCityId ? hoveredCityId : currentCityId}></section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {threePlaces.map((value) => <PlaceCard key={value.id} shortOffer={value}/>)}
+              {nearbyPlaces.map((value) => <PlaceCard key={value.id} shortOffer={value} setCityId={setHoverCityId}/>)}
             </div>
           </section>
         </div>
