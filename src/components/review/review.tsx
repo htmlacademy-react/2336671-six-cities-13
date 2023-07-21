@@ -1,4 +1,4 @@
-import type { ReviewComment } from '../../mocks/reviews';
+import type { ReviewComment } from '../../types/review';
 import { calcRating } from '../../utils/common';
 
 type ReviewProps = {

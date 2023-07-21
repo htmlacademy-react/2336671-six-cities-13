@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
+import { ChangeEvent, Fragment, useState } from 'react';
 import { StarsRating } from '../../const';
 
 const MIN_CHARACTER_LENGTH = 50;
