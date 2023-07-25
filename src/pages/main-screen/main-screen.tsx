@@ -1,78 +1,102 @@
-import PlaceCard from '../../components/place-card/place-card';
+import PlacesList from '../../components/places-list/places-list';
 import Header from '../../components/header/header';
+import { SortType, CitiesList } from '../../const';
+import type { ShortOffer } from '../../types/offer';
+
+import classNames from 'classnames';
+import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 
 type MainScreenProps = {
-  placesCount: number;
+  offers: ShortOffer[];
 }
 
-function MainScreen({placesCount}: MainScreenProps): JSX.Element {
+function MainScreen({offers}: MainScreenProps): JSX.Element {
+
+  const [isSortOpen, setSortOpen] = useState(false);
+  const [currentSortType, setCurrentSortType] = useState('Popular');
+  const [city, setCity] = useState('Paris');
+  const [hoveredCityId, setHoveredCityId] = useState('');
+
+  const sortClass = classNames({
+    'places__options': true,
+    'places__options--custom': true,
+    'places__options--opened': isSortOpen,
+  });
+
+  function handleSortClick() {
+    setSortOpen((current) => !current);
+  }
+
+  function Cities(): JSX.Element {
+    return (
+      <div className="tabs">
+        <section className="locations container">
+          <ul className="locations__list tabs__list">
+            {CitiesList.map((value) => (
+              <li className="locations__item" key={value} onClick={() => {
+                setCity(value);
+              }}
+              >
+                <Link className={`locations__item-link tabs__item ${city === value ? 'tabs__item--active' : ''}`} to="#">
+                  <span>{value}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    );
+  }
+
+  function Sort(): JSX.Element {
+    return (
+      <ul className={sortClass}>
+        {SortType.map((value) => (
+          <li
+            key={value}
+            className={`places__option ${currentSortType === value ? 'places__option--active' : ''}`}
+            tabIndex={0}
+            onClick={() => {
+              setCurrentSortType(value);
+              setSortOpen((current) => !current);
+            }}
+          >{value}
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-        </div>
+        <Cities />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placesCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
+                <span className="places__sorting-caption">Sort by </span>
+                <span className="places__sorting-type" tabIndex={0} onClick={handleSortClick}>
+                  {currentSortType}
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
+                <Sort />
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {Array.from({length: placesCount}, (_, index) => (<PlaceCard key={index} />))}
-              </div>
+              <PlacesList shortOffers={offers} setCityId={setHoveredCityId}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map" id={hoveredCityId} ></section>
             </div>
           </div>
         </div>
