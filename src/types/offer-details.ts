@@ -1,3 +1,6 @@
+import type { City, Location } from './offer';
+
+
 export type OfferDetails = {
   id: string;
   title: string;
@@ -5,19 +8,8 @@ export type OfferDetails = {
   type: string;
   price: number;
   images: string[];
-  city: {
-      name: string;
-      location: {
-          latitude: number;
-          longitude: number;
-          zoom: number;
-      };
-  };
-  location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-  };
+  city: City;
+  location: Location;
   goods: string[];
   host: {
     isPro: boolean;

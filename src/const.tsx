@@ -42,3 +42,8 @@ export const CitiesList = [
   'Hamburg',
   'Dusseldorf',
 ];
+
+export enum MapType {
+  Offer = 'offer',
+  Cities = 'cities',
+}

@@ -1,7 +1,7 @@
 import Header from '../../components/header/header';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
-import { OfferType } from '../../const';
+import { MapType, OfferType } from '../../const';
 import type { OfferDetails } from '../../types/offer-details';
 import type { ReviewComment } from '../../types/review';
 import type { ShortOffer } from '../../types/offer';
@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import PlaceCard from '../../components/place-card/place-card';
 import { Helmet } from 'react-helmet-async';
 import { useState } from 'react';
+import Map from '../../components/map/map';
 
 type OfferScreenProps = {
   offerDetails: OfferDetails;
@@ -18,15 +19,18 @@ type OfferScreenProps = {
 }
 
 function OfferScreen({reviews, offerDetails, nearbyPlaces}: OfferScreenProps): JSX.Element {
-  const {title, description, type, price, bedrooms, maxAdults, rating, isPremium, isFavorite, goods, host, images, id} = offerDetails;
+  const {title, description, type, price, bedrooms, maxAdults, rating, isPremium, isFavorite, goods, host, images, city} = offerDetails;
 
-  const [currentCityId] = useState(id);
   const [hoveredCityId, setHoverCityId] = useState('');
 
   const favClass = classNames(
     'offer__bookmark-button', 'button',
     {'offer__bookmark-button--active': isFavorite},
   );
+
+
+  const tempPlaces = [...nearbyPlaces];
+  tempPlaces.splice(0, 1);
 
   function OfferGallery(): JSX.Element {
     return (
@@ -157,13 +161,13 @@ function OfferScreen({reviews, offerDetails, nearbyPlaces}: OfferScreenProps): J
               </section>
             </div>
           </div>
-          <section className="offer__map map" id={hoveredCityId ? hoveredCityId : currentCityId}></section>
+          <Map city={city} offers={tempPlaces} hoveredCityId={hoveredCityId} currentCity={offerDetails} mapType={MapType.Offer}/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearbyPlaces.map((value) => <PlaceCard key={value.id} shortOffer={value} setCityId={setHoverCityId}/>)}
+              {tempPlaces.map((value) => <PlaceCard key={value.id} shortOffer={value} setCityId={setHoverCityId}/>)}
             </div>
           </section>
         </div>

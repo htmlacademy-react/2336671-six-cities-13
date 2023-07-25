@@ -21,9 +21,6 @@ type AppScreenProps = {
 
 function App({offers, reviews, offerDetails}: AppScreenProps): JSX.Element {
 
-  const randomPlaces = [...offers].sort(() => 0.5 - Math.random());
-  const nearbyPlaces = randomPlaces.slice(0, 3);
-
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -38,7 +35,7 @@ function App({offers, reviews, offerDetails}: AppScreenProps): JSX.Element {
               </PrivateRoute>
             }
           />
-          <Route path={AppRoute.Offer} element={<OfferScreen reviews={reviews} offerDetails={offerDetails} nearbyPlaces={nearbyPlaces}/>} />
+          <Route path={AppRoute.Offer} element={<OfferScreen reviews={reviews} offerDetails={offerDetails} nearbyPlaces={offers}/>} />
           <Route path={AppRoute.Other} element={<PageNotFoundScreen />} />
         </Routes>
       </BrowserRouter>
