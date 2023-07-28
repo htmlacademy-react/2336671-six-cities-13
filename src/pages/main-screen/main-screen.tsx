@@ -100,7 +100,7 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
               <Map
                 city={offers[0].city}
                 offers={offers}
-                hoveredCityId={hoveredCityId} mapType={MapType.Cities}
+                hoveredPlaceId={hoveredCityId} mapType={MapType.Cities}
               />
             </div>
           </div>
