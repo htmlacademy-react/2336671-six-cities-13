@@ -1,6 +1,7 @@
 import PlacesList from '../../components/places-list/places-list';
 import Header from '../../components/header/header';
-import { SortType, CitiesList } from '../../const';
+import Map from '../../components/map/map';
+import { SortType, CitiesList, MapType } from '../../const';
 import type { ShortOffer } from '../../types/offer';
 
 import classNames from 'classnames';
@@ -96,7 +97,11 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
               <PlacesList shortOffers={offers} setCityId={setHoveredCityId}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" id={hoveredCityId} ></section>
+              <Map
+                city={offers[0].city}
+                offers={offers}
+                hoveredCityId={hoveredCityId} mapType={MapType.Cities}
+              />
             </div>
           </div>
         </div>
