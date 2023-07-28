@@ -161,7 +161,7 @@ function OfferScreen({reviews, offerDetails, nearbyPlaces}: OfferScreenProps): J
               </section>
             </div>
           </div>
-          <Map city={city} offers={tempPlaces} hoveredCityId={hoveredCityId} currentCity={offerDetails} mapType={MapType.Offer}/>
+          <Map city={city} offers={tempPlaces} hoveredPlaceId={hoveredCityId} currentPlace={offerDetails} mapType={MapType.Offer}/>
         </section>
         <div className="container">
           <section className="near-places places">

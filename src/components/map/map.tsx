@@ -13,13 +13,13 @@ const URL_CURRENT_MARKER = 'markup/img/pin-active.svg';
 type MapProps = {
   city: City;
   offers: ShortOffer[];
-  currentCity?: OfferDetails;
-  hoveredCityId: string;
+  currentPlace?: OfferDetails;
+  hoveredPlaceId: string;
   mapType: MapType;
 }
 
 
-function Map({city, offers, currentCity, hoveredCityId, mapType}: MapProps): JSX.Element {
+function Map({city, offers, currentPlace, hoveredPlaceId, mapType}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -37,12 +37,12 @@ function Map({city, offers, currentCity, hoveredCityId, mapType}: MapProps): JSX
 
   useEffect(() => {
     if (map) {
-      if (currentCity) {
+      if (currentPlace) {
         leaflet.marker({
-          lat: currentCity.location.latitude,
-          lng: currentCity.location.longitude,
+          lat: currentPlace.location.latitude,
+          lng: currentPlace.location.longitude,
         }, {
-          icon: hoveredCityId ? defaultMarker : currentMarker,
+          icon: hoveredPlaceId ? defaultMarker : currentMarker,
         }).addTo(map);
       }
 
@@ -52,12 +52,12 @@ function Map({city, offers, currentCity, hoveredCityId, mapType}: MapProps): JSX
           lat: point.location.latitude,
           lng: point.location.longitude,
         }, {
-          icon: (hoveredCityId === point.id) ? currentMarker : defaultMarker,
+          icon: (hoveredPlaceId === point.id) ? currentMarker : defaultMarker,
         }).addTo(map);
 
       });
     }
-  }, [currentCity, currentMarker, defaultMarker, hoveredCityId, map, offers]);
+  }, [currentMarker, currentPlace, defaultMarker, hoveredPlaceId, map, offers]);
 
   return (
     <section
