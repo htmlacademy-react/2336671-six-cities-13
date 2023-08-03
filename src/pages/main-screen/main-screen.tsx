@@ -30,6 +30,10 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
     setSortOpen((current) => !current);
   }
 
+  function handleCityClick(value: string) {
+    setCity(value);
+  }
+
   function Cities(): JSX.Element {
     return (
       <div className="tabs">
@@ -37,7 +41,7 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
           <ul className="locations__list tabs__list">
             {CitiesList.map((value) => (
               <li className="locations__item" key={value} onClick={() => {
-                setCity(value);
+                handleCityClick(value);
               }}
               >
                 <Link className={`locations__item-link tabs__item ${city === value ? 'tabs__item--active' : ''}`} to="#">
