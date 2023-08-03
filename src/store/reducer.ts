@@ -14,9 +14,10 @@ const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
       state.city = action.payload;
+      state.offers = getCityOffers(state.city, shortOffers);
     })
-    .addCase(showOffers, (state, action) => {
-      state.offers = action.payload;
+    .addCase(showOffers, (state) => {
+      state.offers = getCityOffers(state.city, shortOffers);
     });
 });
 
