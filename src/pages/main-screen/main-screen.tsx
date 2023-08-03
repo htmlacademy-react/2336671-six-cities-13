@@ -2,22 +2,21 @@ import PlacesList from '../../components/places-list/places-list';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import { SortType, CitiesList, MapType } from '../../const';
-import type { ShortOffer } from '../../types/offer';
 
 import classNames from 'classnames';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { changeCity } from '../../store/actions';
 
-type MainScreenProps = {
-  offers: ShortOffer[];
-}
+function MainScreen(): JSX.Element {
 
-function MainScreen({offers}: MainScreenProps): JSX.Element {
+  const city = useAppSelector((store) => store.city);
+  const offers = useAppSelector((store) => store.offers);
 
   const [isSortOpen, setSortOpen] = useState(false);
   const [currentSortType, setCurrentSortType] = useState('Popular');
-  const [city, setCity] = useState('Paris');
   const [hoveredCityId, setHoveredCityId] = useState('');
 
   const sortClass = classNames({
@@ -26,8 +25,14 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
     'places__options--opened': isSortOpen,
   });
 
+  const dispatch = useAppDispatch();
+
   function handleSortClick() {
     setSortOpen((current) => !current);
+  }
+
+  function handleCityClick(value: string) {
+    dispatch(changeCity(value));
   }
 
   function Cities(): JSX.Element {
@@ -37,7 +42,7 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
           <ul className="locations__list tabs__list">
             {CitiesList.map((value) => (
               <li className="locations__item" key={value} onClick={() => {
-                setCity(value);
+                handleCityClick(value);
               }}
               >
                 <Link className={`locations__item-link tabs__item ${city === value ? 'tabs__item--active' : ''}`} to="#">
@@ -83,7 +88,7 @@ function MainScreen({offers}: MainScreenProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by </span>
                 <span className="places__sorting-type" tabIndex={0} onClick={handleSortClick}>

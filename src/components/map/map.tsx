@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import leaflet from 'leaflet';
-import useMap from './useMap';
+import useMap from '../../hooks/useMap';
 import { City, ShortOffer } from '../../types/offer';
 
 import 'leaflet/dist/leaflet.css';
@@ -14,7 +14,7 @@ type MapProps = {
   city: City;
   offers: ShortOffer[];
   currentPlace?: OfferDetails;
-  hoveredPlaceId: string;
+  hoveredPlaceId?: string;
   mapType: MapType;
 }
 
@@ -37,12 +37,13 @@ function Map({city, offers, currentPlace, hoveredPlaceId, mapType}: MapProps): J
 
   useEffect(() => {
     if (map) {
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
       if (currentPlace) {
         leaflet.marker({
           lat: currentPlace.location.latitude,
           lng: currentPlace.location.longitude,
         }, {
-          icon: hoveredPlaceId ? defaultMarker : currentMarker,
+          icon:  currentMarker,
         }).addTo(map);
       }
 
@@ -52,12 +53,12 @@ function Map({city, offers, currentPlace, hoveredPlaceId, mapType}: MapProps): J
           lat: point.location.latitude,
           lng: point.location.longitude,
         }, {
-          icon: (hoveredPlaceId === point.id) ? currentMarker : defaultMarker,
+          icon: (hoveredPlaceId === point.id && mapType === MapType.Cities) ? currentMarker : defaultMarker,
         }).addTo(map);
 
       });
     }
-  }, [currentMarker, currentPlace, defaultMarker, hoveredPlaceId, map, offers]);
+  }, [city.location.latitude, city.location.longitude, city.location.zoom, currentMarker, currentPlace, defaultMarker, hoveredPlaceId, map, mapType, offers]);
 
   return (
     <section

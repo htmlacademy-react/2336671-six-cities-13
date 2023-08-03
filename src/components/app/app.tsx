@@ -9,23 +9,24 @@ import PrivateRoute from '../private-route/private-route';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
-import type { ShortOffer } from '../../types/offer';
 import type { ReviewComment } from '../../types/review';
 import type { OfferDetails } from '../../types/offer-details';
+import { useAppSelector } from '../../hooks';
 
 type AppScreenProps = {
-  offers: ShortOffer[];
   reviews: ReviewComment[];
   offerDetails: OfferDetails;
 }
 
-function App({offers, reviews, offerDetails}: AppScreenProps): JSX.Element {
+function App({reviews, offerDetails}: AppScreenProps): JSX.Element {
+
+  const currentOffers = useAppSelector((state) => state.offers);
 
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route path={AppRoute.Root} element={<MainScreen offers={offers} />} />
+          <Route path={AppRoute.Root} element={<MainScreen />} />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route
             path={AppRoute.Favorites}
@@ -35,7 +36,7 @@ function App({offers, reviews, offerDetails}: AppScreenProps): JSX.Element {
               </PrivateRoute>
             }
           />
-          <Route path={AppRoute.Offer} element={<OfferScreen reviews={reviews} offerDetails={offerDetails} nearbyPlaces={offers}/>} />
+          <Route path={AppRoute.Offer} element={<OfferScreen reviews={reviews} offerDetails={offerDetails} nearbyPlaces={currentOffers}/>} />
           <Route path={AppRoute.Other} element={<PageNotFoundScreen />} />
         </Routes>
       </BrowserRouter>
