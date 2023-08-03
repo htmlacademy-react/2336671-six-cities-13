@@ -108,6 +108,29 @@ export const shortOffers: ShortOffer[] = [
       }
     },
     location: {
+      latitude: 50.938361,
+      longitude: 6.959974,
+      zoom: 16
+    },
+    isFavorite: false,
+    isPremium: false,
+    rating: 2.5
+  },
+  {
+    id: 'f559b627-8d60-49d1-b9dc-db521c81ed58',
+    title: 'Canal View Prinsengracht',
+    type: 'hotel',
+    price: 200,
+    previewImage: 'https://13.design.pages.academy/static/hotel/13.jpg',
+    city: {
+      name: 'Cologne',
+      location: {
+        latitude: 50.938361,
+        longitude: 6.959974,
+        zoom: 13
+      }
+    },
+    location: {
       latitude: 50.950361,
       longitude: 6.961974,
       zoom: 16
