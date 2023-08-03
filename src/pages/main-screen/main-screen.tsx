@@ -8,14 +8,15 @@ import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
 import Cities from '../../components/cities/cities';
 import Sort from '../../components/sort/sort';
-import { sortOffers } from '../../utils/common';
+import { getCityOffers, sortOffers } from '../../utils/common';
 
 function MainScreen(): JSX.Element {
 
   const city = useAppSelector((store) => store.city);
   const offers = useAppSelector((store) => store.offers);
+  const currentCityOffers = getCityOffers(city, offers);
   const sortType = useAppSelector((store) => store.sort);
-  const sortedOffers = sortOffers(offers, sortType);
+  const sortedOffers = sortOffers(currentCityOffers, sortType);
 
   const [hoveredCityId, setHoveredCityId] = useState('');
 
