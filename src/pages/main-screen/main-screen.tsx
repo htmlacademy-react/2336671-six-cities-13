@@ -8,43 +8,53 @@ import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
 import Cities from '../../components/cities/cities';
 import Sort from '../../components/sort/sort';
-import { getCityOffers, sortOffers } from '../../utils/common';
+import { getSortedCityOffers } from '../../utils/common';
+import MainEmpty from '../../components/main-empty/main-empty';
+import classNames from 'classnames';
 
 function MainScreen(): JSX.Element {
 
   const city = useAppSelector((store) => store.city);
   const offers = useAppSelector((store) => store.offers);
-  const currentCityOffers = getCityOffers(city, offers);
   const sortType = useAppSelector((store) => store.sort);
-  const sortedOffers = sortOffers(currentCityOffers, sortType);
+
+  const currentCitySsortedOffers = getSortedCityOffers(city, offers, sortType);
 
   const [hoveredCityId, setHoveredCityId] = useState('');
 
+  let mainClass = classNames('page page--gray', 'page--main');
+
+  if (!currentCitySsortedOffers.length) {
+    mainClass += ' page__main--index-empty';
+  }
+
   return (
-    <div className="page page--gray page--main">
+    <div className={mainClass}>
       <Helmet>
         <title>6 cities</title>
       </Helmet>
       <Header />
-      <main className="page__main page__main--index">
+      <main className="page__main page__main--index ">
         <h1 className="visually-hidden">Cities</h1>
         <Cities />
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{sortedOffers.length} places to stay in {city}</b>
-              <Sort />
-              <PlacesList shortOffers={sortedOffers} setCityId={setHoveredCityId}/>
-            </section>
-            <div className="cities__right-section">
-              <Map
-                city={sortedOffers[0].city}
-                offers={sortedOffers}
-                hoveredPlaceId={hoveredCityId} mapType={MapType.Cities}
-              />
+          { currentCitySsortedOffers.length ?
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{currentCitySsortedOffers.length} places to stay in {city}</b>
+                <Sort />
+                <PlacesList shortOffers={currentCitySsortedOffers} setCityId={setHoveredCityId}/>
+              </section>
+              <div className="cities__right-section">
+                <Map
+                  city={currentCitySsortedOffers[0].city}
+                  offers={currentCitySsortedOffers}
+                  hoveredPlaceId={hoveredCityId} mapType={MapType.Cities}
+                />
+              </div>
             </div>
-          </div>
+            : <MainEmpty city={city} />}
         </div>
       </main>
     </div>

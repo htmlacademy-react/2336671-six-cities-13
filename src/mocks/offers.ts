@@ -208,27 +208,5 @@ export const shortOffers: ShortOffer[] = [
     isPremium: true,
     rating: 3
   },
-  {
-    id: 'a875c719-7868-4987-8ead-caa7d870ec9b',
-    title: 'Canal View Prinsengracht',
-    type: 'hotel',
-    price: 247,
-    previewImage: 'https://13.design.pages.academy/static/hotel/16.jpg',
-    city: {
-      name: 'Dusseldorf',
-      location: {
-        latitude: 51.225402,
-        longitude: 6.776314,
-        zoom: 13
-      }
-    },
-    location: {
-      latitude: 51.236402000000005,
-      longitude: 6.784314,
-      zoom: 16
-    },
-    isFavorite: false,
-    isPremium: true,
-    rating: 3.2
-  }
+
 ];
