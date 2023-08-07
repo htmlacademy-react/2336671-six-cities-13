@@ -19,7 +19,7 @@ function Cities(): JSX.Element {
               handleCityClick(value);
             }}
             >
-              <Link className={`locations__item-link tabs__item ${city === value ? 'tabs__item--active' : ''}`} to="#">
+              <Link className={`locations__item-link tabs__item ${city === value ? 'tabs__item--active' : ''}`} to="/">
                 <span>{value}</span>
               </Link>
             </li>
