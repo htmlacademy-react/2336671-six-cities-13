@@ -29,8 +29,7 @@ function OfferScreen({reviews, offerDetails, nearbyPlaces}: OfferScreenProps): J
   );
 
 
-  const tempPlaces = [...nearbyPlaces];
-  tempPlaces.splice(0, 1);
+  const tempPlaces = [...nearbyPlaces].filter((place) => place.id !== offerDetails.id);
 
   function OfferGallery(): JSX.Element {
     return (

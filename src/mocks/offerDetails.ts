@@ -1,7 +1,7 @@
 import type { OfferDetails } from '../types/offer-details';
 
 export const offerDetails: OfferDetails = {
-  id: 'cc86c284-5f68-4393-94f1-888b054e31d2',
+  id: '34f50f68-803c-43a9-8d59-9556fb9c0eaa',
   title: 'The Joshua Tree House',
   description: 'Design interior in most sympathetic area! Complitely renovated, well-equipped, cosy studio in idyllic, over 100 years old wooden house. Calm street, fast connection to center and airport.',
   type: 'hotel',
