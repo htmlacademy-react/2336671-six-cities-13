@@ -1,6 +1,10 @@
+import styles from './loading-screen.module.css';
+
 function LoadingScreen():JSX.Element {
   return (
-    <p>Loading...</p>
+    <div className={styles['pos-center']}>
+      <div className={styles['loader']}></div>
+    </div>
   );
 }
 
