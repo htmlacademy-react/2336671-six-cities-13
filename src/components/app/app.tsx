@@ -12,6 +12,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import type { ReviewComment } from '../../types/review';
 import type { OfferDetails } from '../../types/offer-details';
 import { useAppSelector } from '../../hooks';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 type AppScreenProps = {
   reviews: ReviewComment[];
@@ -20,7 +21,15 @@ type AppScreenProps = {
 
 function App({reviews, offerDetails}: AppScreenProps): JSX.Element {
 
+  const authStatus = useAppSelector((state) => state.authStatus);
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
   const currentOffers = useAppSelector((state) => state.offers);
+
+  if (authStatus === AuthStatus.Unknown || isOffersLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <HelmetProvider>
@@ -31,7 +40,7 @@ function App({reviews, offerDetails}: AppScreenProps): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authStatus={AuthStatus.NoAuth}>
+              <PrivateRoute authStatus={authStatus}>
                 <FavoritesScreen />
               </PrivateRoute>
             }
