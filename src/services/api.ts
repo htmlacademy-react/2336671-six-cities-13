@@ -37,7 +37,7 @@ export const createApi = (): AxiosInstance => {
     }
   );
 
-  api.interceptors.request.use(
+  api.interceptors.response.use(
     (response) => response,
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
@@ -45,6 +45,7 @@ export const createApi = (): AxiosInstance => {
 
         processErrorHandle(detailMessage.message);
       }
+
       throw error;
     }
   );

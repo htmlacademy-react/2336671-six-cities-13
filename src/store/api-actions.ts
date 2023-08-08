@@ -9,7 +9,7 @@ import { UserData } from '../types/user-data';
 import { removeToken, saveToken } from '../services/token';
 import { store } from '.';
 
-const TIMEOUT_SHOW_ERROR = 10000;
+const TIMEOUT_SHOW_ERROR = 2000;
 
 export const clearErrorAction = createAsyncThunk(
   'main/clearError',
