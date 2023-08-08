@@ -15,3 +15,5 @@ export const storeOffers = createAction('main/storeOffers', (value: ShortOffer[]
 }));
 
 export const requireAuth = createAction<AuthStatus>('user/requireAuth');
+
+export const setError = createAction<string | null>('main/setError');

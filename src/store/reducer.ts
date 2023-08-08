@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, changeSort, requireAuth, storeOffers } from './actions';
+import { changeCity, changeSort, requireAuth, setError, storeOffers } from './actions';
 import { SortType } from '../const';
 import { AuthStatus } from '../const';
 import { ShortOffer } from '../types/offer';
@@ -12,6 +12,7 @@ type InitialState = {
   offers: ShortOffer[];
   sort: SortType;
   authStatus: AuthStatus;
+  error: string | null;
 }
 
 const initialState: InitialState = {
@@ -19,6 +20,7 @@ const initialState: InitialState = {
   offers: [],
   sort: DEFAULT_SORT,
   authStatus: AuthStatus.Unknown,
+  error: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -34,6 +36,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuth, (state, action) => {
       state.authStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });
 
