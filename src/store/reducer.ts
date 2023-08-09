@@ -1,15 +1,28 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, changeSort, storeOffers } from './actions';
-import { shortOffers } from '../mocks/offers';
+import { changeCity, changeSort, requireAuth, setError, setOffersLoading, storeOffers } from './actions';
 import { SortType } from '../const';
+import { AuthStatus } from '../const';
+import { ShortOffer } from '../types/offer';
 
 const DEFAULT_CITY = 'Paris';
 const DEFAULT_SORT = SortType.Popular;
 
-const initialState = {
+type InitialState = {
+  city: string;
+  offers: ShortOffer[];
+  isOffersLoading: boolean;
+  sort: SortType;
+  authStatus: AuthStatus;
+  error: string | null;
+}
+
+const initialState: InitialState = {
   city: DEFAULT_CITY,
-  offers: shortOffers,
+  offers: [],
+  isOffersLoading: false,
   sort: DEFAULT_SORT,
+  authStatus: AuthStatus.Unknown,
+  error: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -22,6 +35,15 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(storeOffers, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(setOffersLoading, (state, action) => {
+      state.isOffersLoading = action.payload;
+    })
+    .addCase(requireAuth, (state, action) => {
+      state.authStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });
 
