@@ -6,13 +6,15 @@ import PageNotFoundScreen from '../../pages/page-not-found-screen/page-not-found
 import { AppRoute, AuthStatus } from '../../const';
 
 import PrivateRoute from '../private-route/private-route';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
 import type { ReviewComment } from '../../types/review';
 import type { OfferDetails } from '../../types/offer-details';
 import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 type AppScreenProps = {
   reviews: ReviewComment[];
@@ -33,10 +35,13 @@ function App({reviews, offerDetails}: AppScreenProps): JSX.Element {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route path={AppRoute.Root} element={<MainScreen />} />
-          <Route path={AppRoute.Login} element={<LoginScreen />} />
+          <Route
+            path={AppRoute.Login}
+            element={<LoginScreen />}
+          />
           <Route
             path={AppRoute.Favorites}
             element={
@@ -48,7 +53,7 @@ function App({reviews, offerDetails}: AppScreenProps): JSX.Element {
           <Route path={AppRoute.Offer} element={<OfferScreen reviews={reviews} offerDetails={offerDetails} nearbyPlaces={currentOffers}/>} />
           <Route path={AppRoute.Other} element={<PageNotFoundScreen />} />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }
