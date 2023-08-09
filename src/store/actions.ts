@@ -18,6 +18,4 @@ export const setOffersLoading = createAction<boolean>('main/setOffersLoading');
 
 export const requireAuth = createAction<AuthStatus>('user/requireAuth');
 
-export const setError = createAction<string | null>('main/setError');
-
 export const redirectToRoute = createAction<AppRoute>('main/redirectRoute');

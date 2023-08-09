@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, changeSort, requireAuth, setError, setOffersLoading, storeOffers } from './actions';
+import { changeCity, changeSort, requireAuth, setOffersLoading, storeOffers } from './actions';
 import { SortType } from '../const';
 import { AuthStatus } from '../const';
 import { ShortOffer } from '../types/offer';
@@ -41,9 +41,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuth, (state, action) => {
       state.authStatus = action.payload;
-    })
-    .addCase(setError, (state, action) => {
-      state.error = action.payload;
     });
 });
 
