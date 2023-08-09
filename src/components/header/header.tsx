@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
 import Logo from '../logo/logo';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthStatus } from '../../const';
 import { AppRoute } from '../../const';
 import { Fragment } from 'react';
+import { logoutAction } from '../../store/api-actions';
 
 function Header(): JSX.Element {
 
   const authStatus = useAppSelector((store) => store.authStatus);
+  const dispatch = useAppDispatch();
 
   return (
     <header className="header">
@@ -32,6 +34,10 @@ function Header(): JSX.Element {
                     <Link
                       className="header__nav-link"
                       to="/"
+                      onClick={(evt) => {
+                        evt.preventDefault();
+                        dispatch(logoutAction());
+                      }}
                     >
                       <span className="header__signout">Sign out</span>
                     </Link>
