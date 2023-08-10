@@ -5,7 +5,7 @@ type ReviewProps = {
   review: Review;
 }
 
-function Review({review}: ReviewProps): JSX.Element {
+function ReviewComment({review}: ReviewProps): JSX.Element {
   const {comment, date, rating, user} = review;
   const commentDate = new Date(date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
   return (
@@ -34,4 +34,4 @@ function Review({review}: ReviewProps): JSX.Element {
   );
 }
 
-export default Review;
+export default ReviewComment;
