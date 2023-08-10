@@ -2,34 +2,51 @@ import Header from '../../components/header/header';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import { MapType, OfferType } from '../../const';
-import type { OfferDetails } from '../../types/offer-details';
-import type { ReviewComment } from '../../types/review';
-import type { ShortOffer } from '../../types/offer';
 import { calcRating } from '../../utils/common';
 import classNames from 'classnames';
 import PlaceCard from '../../components/place-card/place-card';
 import { Helmet } from 'react-helmet-async';
 import { useState } from 'react';
 import Map from '../../components/map/map';
+import PageNotFoundScreen from '../page-not-found-screen/page-not-found-screen';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useParams } from 'react-router-dom';
+import { fetchNearbyPlacesAction, fetchOfferDetailsAction, fetchReviewsAction } from '../../store/api-actions';
+import LoadingScreen from '../loading-screen/loading-screen';
 
-type OfferScreenProps = {
-  offerDetails: OfferDetails;
-  reviews: ReviewComment[];
-  nearbyPlaces: ShortOffer[];
-}
-
-function OfferScreen({reviews, offerDetails, nearbyPlaces}: OfferScreenProps): JSX.Element {
-  const {title, description, type, price, bedrooms, maxAdults, rating, isPremium, isFavorite, goods, host, images, city} = offerDetails;
+function OfferScreen(): JSX.Element {
 
   const [hoveredCityId, setHoverCityId] = useState('');
+
+  const params = useParams();
+  const dispatch = useAppDispatch();
+
+  const offerDetails = useAppSelector((store) => store.offerDetails);
+  const reviews = useAppSelector((store) => store.reviews);
+  const nearbyPlaces = useAppSelector((store) => store.nearbyPlaces);
+  const isLoading = useAppSelector((store) => store.isLoading);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
+  if (!offerDetails) {
+    dispatch(fetchOfferDetailsAction(params.ids as string));
+    dispatch(fetchReviewsAction(params.ids as string));
+    dispatch(fetchNearbyPlacesAction(params.ids as string));
+  }
+
+  if (!offerDetails) {
+    return <PageNotFoundScreen />;
+  }
+  const {title, description, type, price, bedrooms, maxAdults, rating, isPremium, isFavorite, goods, host, images, city} = offerDetails;
 
   const favClass = classNames(
     'offer__bookmark-button', 'button',
     {'offer__bookmark-button--active': isFavorite},
   );
 
-
-  const tempPlaces = [...nearbyPlaces].filter((place) => place.id !== offerDetails.id);
+  const tempPlaces = [...nearbyPlaces].slice(0, 3);
 
   function OfferGallery(): JSX.Element {
     return (

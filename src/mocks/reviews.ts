@@ -1,6 +1,6 @@
-import type { ReviewComment } from '../types/review';
+import type { Review } from '../types/review';
 
-export const reviewsMocks: ReviewComment[] = [
+export const reviewsMocks: Review[] = [
   {
     id: '5abcc770-15be-46cb-85ba-07bbc0c50bdf',
     comment: 'This villa is perfect in every way: the view on mountains and waterfalls, the hot tub and the villa itself. The evening here became a great continuation of our journeys over country.',

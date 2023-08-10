@@ -1,8 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, changeSort, requireAuth, setOffersLoading, storeOffers } from './actions';
+import { changeCity, changeSort, requireAuth, setLoading, storeNearbyPlaces, storeOfferDetails, storeOffers, storeReviews } from './actions';
 import { SortType } from '../const';
 import { AuthStatus } from '../const';
 import { ShortOffer } from '../types/offer';
+import { OfferDetails } from '../types/offer-details';
+import { Review } from '../types/review';
 
 const DEFAULT_CITY = 'Paris';
 const DEFAULT_SORT = SortType.Popular;
@@ -10,7 +12,10 @@ const DEFAULT_SORT = SortType.Popular;
 type InitialState = {
   city: string;
   offers: ShortOffer[];
-  isOffersLoading: boolean;
+  offerDetails: OfferDetails | null;
+  reviews: Review[];
+  nearbyPlaces: ShortOffer[];
+  isLoading: boolean;
   sort: SortType;
   authStatus: AuthStatus;
   error: string | null;
@@ -19,10 +24,14 @@ type InitialState = {
 const initialState: InitialState = {
   city: DEFAULT_CITY,
   offers: [],
-  isOffersLoading: false,
+  offerDetails: null,
+  reviews: [],
+  nearbyPlaces: [],
+  isLoading: false,
   sort: DEFAULT_SORT,
   authStatus: AuthStatus.Unknown,
   error: null,
+
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -36,8 +45,17 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(storeOffers, (state, action) => {
       state.offers = action.payload;
     })
-    .addCase(setOffersLoading, (state, action) => {
-      state.isOffersLoading = action.payload;
+    .addCase(storeOfferDetails, (state, action) => {
+      state.offerDetails = action.payload;
+    })
+    .addCase(storeReviews, (store, action) => {
+      store.reviews = action.payload;
+    })
+    .addCase(storeNearbyPlaces, (store, action) => {
+      store.nearbyPlaces = action.payload;
+    })
+    .addCase(setLoading, (state, action) => {
+      state.isLoading = action.payload;
     })
     .addCase(requireAuth, (state, action) => {
       state.authStatus = action.payload;
