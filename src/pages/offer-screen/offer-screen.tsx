@@ -6,7 +6,6 @@ import { calcRating } from '../../utils/common';
 import classNames from 'classnames';
 import PlaceCard from '../../components/place-card/place-card';
 import { Helmet } from 'react-helmet-async';
-import { useState } from 'react';
 import Map from '../../components/map/map';
 import PageNotFoundScreen from '../page-not-found-screen/page-not-found-screen';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -15,8 +14,6 @@ import { fetchNearbyPlacesAction, fetchOfferDetailsAction, fetchReviewsAction } 
 import LoadingScreen from '../loading-screen/loading-screen';
 
 function OfferScreen(): JSX.Element {
-
-  const [hoveredCityId, setHoverCityId] = useState('');
 
   const params = useParams();
   const dispatch = useAppDispatch();
@@ -177,13 +174,13 @@ function OfferScreen(): JSX.Element {
               </section>
             </div>
           </div>
-          <Map city={city} offers={tempPlaces} hoveredPlaceId={hoveredCityId} currentPlace={offerDetails} mapType={MapType.Offer}/>
+          <Map city={city} offers={tempPlaces} currentPlace={offerDetails} mapType={MapType.Offer}/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {tempPlaces.map((value) => <PlaceCard key={value.id} shortOffer={value} setCityId={setHoverCityId}/>)}
+              {tempPlaces.map((value) => <PlaceCard key={value.id} shortOffer={value} />)}
             </div>
           </section>
         </div>

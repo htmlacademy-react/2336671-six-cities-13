@@ -3,20 +3,27 @@ import { OfferType } from '../../const';
 import type { ShortOffer } from '../../types/offer';
 import { calcRating } from '../../utils/common';
 import classNames from 'classnames';
-import ScrollToTop from '../../utils/scroll';
 import { fetchNearbyPlacesAction, fetchOfferDetailsAction, fetchReviewsAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 
 type PlaceCardProps = {
   shortOffer: ShortOffer;
-  setCityId: React.Dispatch<React.SetStateAction<string>>;
+  setCityId?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
   const {id, title, type, price, previewImage, isFavorite, isPremium, rating} = shortOffer;
 
-  const handleMouseEnter = (cityId: string) => setCityId(cityId);
-  const handleMouseLeave = () => setCityId('');
+  const handleMouseEnter = (cityId: string) => {
+    if (setCityId) {
+      setCityId(cityId);
+    }
+  };
+  const handleMouseLeave = () => {
+    if (setCityId) {
+      setCityId('');
+    }
+  };
 
   const dispatch = useAppDispatch();
 
@@ -31,8 +38,6 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
     {'place-card__bookmark-button--active': isFavorite},
     'button'
   );
-
-  //ScrollToTop();
 
   return (
     <article
