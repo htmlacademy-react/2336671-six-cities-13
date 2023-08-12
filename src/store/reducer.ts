@@ -1,10 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, changeSort, requireAuth, setLoading, storeNearbyPlaces, storeOfferDetails, storeOffers, storeReviews } from './actions';
+import { changeCity, changeSort, postReview, requireAuth, setNearbyPlacesLoading, setOfferDetailsLoading, setOffersLoading, setReviewsLoading, storeNearbyPlaces, storeOfferDetails, storeOffers, storeReviews, storeUserInfo } from './actions';
 import { SortType } from '../const';
 import { AuthStatus } from '../const';
 import { ShortOffer } from '../types/offer';
 import { OfferDetails } from '../types/offer-details';
 import { Review } from '../types/review';
+import { UserData } from '../types/user-data';
 
 const DEFAULT_CITY = 'Paris';
 const DEFAULT_SORT = SortType.Popular;
@@ -15,9 +16,13 @@ type InitialState = {
   offerDetails: OfferDetails | null;
   reviews: Review[];
   nearbyPlaces: ShortOffer[];
-  isLoading: boolean;
+  isOffersLoading: boolean;
+  isOfferDetailsLoading: boolean;
+  isReviewsLoading: boolean;
+  isNearbyPlacesLoading: boolean;
   sort: SortType;
   authStatus: AuthStatus;
+  userInfo: UserData | null;
   error: string | null;
 }
 
@@ -27,11 +32,14 @@ const initialState: InitialState = {
   offerDetails: null,
   reviews: [],
   nearbyPlaces: [],
-  isLoading: false,
   sort: DEFAULT_SORT,
   authStatus: AuthStatus.Unknown,
   error: null,
-
+  userInfo: null,
+  isOffersLoading: false,
+  isOfferDetailsLoading: false,
+  isReviewsLoading: false,
+  isNearbyPlacesLoading: false
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -54,11 +62,26 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(storeNearbyPlaces, (store, action) => {
       store.nearbyPlaces = action.payload;
     })
-    .addCase(setLoading, (state, action) => {
-      state.isLoading = action.payload;
+    .addCase(setOffersLoading, (state, action) => {
+      state.isOffersLoading = action.payload;
+    })
+    .addCase(setOfferDetailsLoading, (state, action) => {
+      state.isOfferDetailsLoading = action.payload;
+    })
+    .addCase(setReviewsLoading, (state, action) => {
+      state.isReviewsLoading = action.payload;
+    })
+    .addCase(postReview, (state, action) => {
+      state.reviews.push(action.payload);
+    })
+    .addCase(setNearbyPlacesLoading, (state, action) => {
+      state.isNearbyPlacesLoading = action.payload;
     })
     .addCase(requireAuth, (state, action) => {
       state.authStatus = action.payload;
+    })
+    .addCase(storeUserInfo, (state, action) => {
+      state.userInfo = action.payload;
     });
 });
 

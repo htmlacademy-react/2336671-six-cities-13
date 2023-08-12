@@ -3,8 +3,6 @@ import { OfferType } from '../../const';
 import type { ShortOffer } from '../../types/offer';
 import { calcRating } from '../../utils/common';
 import classNames from 'classnames';
-import { fetchNearbyPlacesAction, fetchOfferDetailsAction, fetchReviewsAction } from '../../store/api-actions';
-import { useAppDispatch } from '../../hooks';
 
 type PlaceCardProps = {
   shortOffer: ShortOffer;
@@ -24,8 +22,6 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
       setCityId('');
     }
   };
-
-  const dispatch = useAppDispatch();
 
   const PlaceCardMark = (): JSX.Element => (
     <div className="place-card__mark">
@@ -49,12 +45,6 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link
           to={`/offers/${id}`}
-          onClick={(evt) => {
-            evt.preventDefault();
-            dispatch(fetchOfferDetailsAction(id));
-            dispatch(fetchReviewsAction(id));
-            dispatch(fetchNearbyPlacesAction(id));
-          }}
         >
           <img className="place-card__image" src={previewImage} width="260" height="200" alt={title}/>
         </Link>
@@ -81,12 +71,6 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link
             to={`/offers/${id}`}
-            onClick={(evt) => {
-              evt.preventDefault();
-              dispatch(fetchOfferDetailsAction(id));
-              dispatch(fetchReviewsAction(id));
-              dispatch(fetchNearbyPlacesAction(id));
-            }}
           >{title}
           </Link>
         </h2>

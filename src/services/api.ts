@@ -3,7 +3,7 @@ import { getToken } from './token';
 import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
 
-type DetailMessageType = {
+export type DetailMessageType = {
   type: string;
   message: string;
 }
