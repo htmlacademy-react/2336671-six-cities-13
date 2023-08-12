@@ -65,7 +65,6 @@ export const fetchReviewsAction = createAsyncThunk<
       dispatch(storeReviews(data));
     } catch {
       dispatch(setReviewsLoading(false));
-      throw AxiosError;
     }
   }
 );
