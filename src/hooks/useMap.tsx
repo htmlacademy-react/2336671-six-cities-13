@@ -14,6 +14,7 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map |
           lng: city.location.longitude
         },
         zoom: city.location.zoom,
+        scrollWheelZoom: false,
       });
 
       leaflet.tileLayer(

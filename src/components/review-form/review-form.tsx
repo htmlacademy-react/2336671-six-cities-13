@@ -1,21 +1,36 @@
-import { ChangeEvent, Fragment, useState } from 'react';
+import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
 import { StarsRating } from '../../const';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
+import { submitReviewAction } from '../../store/api-actions';
 
 const MIN_CHARACTER_LENGTH = 50;
 const MAX_CHARACTER_LENGTH = 300;
 
 function ReviewForm():JSX.Element {
 
+  const params = useParams();
+  const dispatch = useAppDispatch();
+  const [isSubmiting, setSubminting] = useState(false);
+
   const [formData, setFormData] = useState({
     rating: 0,
     review: '',
   });
 
-  function handleFieldChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+  const handleFieldChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     evt.preventDefault();
     const {name, value} = evt.target;
     setFormData({...formData, [name]: value });
-  }
+  };
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    setSubminting(true);
+    dispatch(submitReviewAction({id: params.ids as string, comment: formData.review, rating: Number(formData.rating)})).then(() => {
+      setSubminting(false);
+    });
+  };
 
   function Stars(): JSX.Element {
     return (
@@ -55,6 +70,7 @@ function ReviewForm():JSX.Element {
       className="reviews__form form"
       action="#"
       method="post"
+      onSubmit={handleSubmit}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <Stars />
@@ -77,9 +93,9 @@ function ReviewForm():JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!formData.rating || formData.review.length < MIN_CHARACTER_LENGTH || formData.review.length > MAX_CHARACTER_LENGTH }
+          disabled={!formData.rating || formData.review.length < MIN_CHARACTER_LENGTH || formData.review.length > MAX_CHARACTER_LENGTH || isSubmiting}
         >
-        Submit
+          {isSubmiting ? 'Sending...' : 'Submit'}
         </button>
       </div>
     </form>

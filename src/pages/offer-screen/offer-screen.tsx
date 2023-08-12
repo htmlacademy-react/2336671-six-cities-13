@@ -1,35 +1,58 @@
 import Header from '../../components/header/header';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
-import { MapType, OfferType } from '../../const';
-import type { OfferDetails } from '../../types/offer-details';
-import type { ReviewComment } from '../../types/review';
-import type { ShortOffer } from '../../types/offer';
+import { AuthStatus, MapType, OfferType } from '../../const';
 import { calcRating } from '../../utils/common';
 import classNames from 'classnames';
-import PlaceCard from '../../components/place-card/place-card';
 import { Helmet } from 'react-helmet-async';
-import { useState } from 'react';
 import Map from '../../components/map/map';
+import PageNotFoundScreen from '../page-not-found-screen/page-not-found-screen';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useParams } from 'react-router-dom';
+import { fetchNearbyPlacesAction, fetchOfferDetailsAction, fetchReviewsAction } from '../../store/api-actions';
+import LoadingScreen from '../loading-screen/loading-screen';
+import { useEffect } from 'react';
+import PlacesList from '../../components/places-list/places-list';
+import ScrollToTop from '../../utils/scroll';
 
-type OfferScreenProps = {
-  offerDetails: OfferDetails;
-  reviews: ReviewComment[];
-  nearbyPlaces: ShortOffer[];
-}
+function OfferScreen(): JSX.Element {
 
-function OfferScreen({reviews, offerDetails, nearbyPlaces}: OfferScreenProps): JSX.Element {
+  const params = useParams();
+  const dispatch = useAppDispatch();
+
+  const offerDetails = useAppSelector((store) => store.offerDetails);
+  const reviews = useAppSelector((store) => store.reviews);
+  const lastReviwes = reviews.slice(-10);
+  const nearbyPlaces = useAppSelector((store) => store.nearbyPlaces);
+  const authStatus = useAppSelector((store) => store.authStatus);
+  const isOfferDetailsLoading = useAppSelector((store) => store.isOfferDetailsLoading);
+  const isReviewsLoading = useAppSelector((store) => store.isReviewsLoading);
+  const isNearbyPlacesLoading = useAppSelector((store) => store.isNearbyPlacesLoading);
+
+  const tempPlaces = nearbyPlaces?.slice(0, 3);
+
+  ScrollToTop();
+
+  useEffect(() => {
+    dispatch(fetchOfferDetailsAction(params.ids as string));
+    dispatch(fetchReviewsAction(params.ids as string));
+    dispatch(fetchNearbyPlacesAction(params.ids as string));
+  }, [dispatch, params.ids]);
+
+  if(isOfferDetailsLoading || isReviewsLoading || isNearbyPlacesLoading) {
+    return <LoadingScreen />;
+  }
+
+  if (!offerDetails) {
+    return <PageNotFoundScreen />;
+  }
+
   const {title, description, type, price, bedrooms, maxAdults, rating, isPremium, isFavorite, goods, host, images, city} = offerDetails;
-
-  const [hoveredCityId, setHoverCityId] = useState('');
 
   const favClass = classNames(
     'offer__bookmark-button', 'button',
     {'offer__bookmark-button--active': isFavorite},
   );
-
-
-  const tempPlaces = [...nearbyPlaces].filter((place) => place.id !== offerDetails.id);
 
   function OfferGallery(): JSX.Element {
     return (
@@ -155,18 +178,18 @@ function OfferScreen({reviews, offerDetails, nearbyPlaces}: OfferScreenProps): J
               </div>
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewsList reviews={reviews} />
-                <ReviewForm />
+                <ReviewsList reviews={lastReviwes} />
+                {authStatus === AuthStatus.Auth && <ReviewForm />}
               </section>
             </div>
           </div>
-          <Map city={city} offers={tempPlaces} hoveredPlaceId={hoveredCityId} currentPlace={offerDetails} mapType={MapType.Offer}/>
+          <Map city={city} offers={tempPlaces} currentPlace={offerDetails} mapType={MapType.Offer}/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {tempPlaces.map((value) => <PlaceCard key={value.id} shortOffer={value} setCityId={setHoverCityId}/>)}
+              <PlacesList shortOffers={tempPlaces} />
             </div>
           </section>
         </div>

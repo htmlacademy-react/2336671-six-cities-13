@@ -3,18 +3,25 @@ import { OfferType } from '../../const';
 import type { ShortOffer } from '../../types/offer';
 import { calcRating } from '../../utils/common';
 import classNames from 'classnames';
-import ScrollToTop from '../../utils/scroll';
 
 type PlaceCardProps = {
   shortOffer: ShortOffer;
-  setCityId: React.Dispatch<React.SetStateAction<string>>;
+  setCityId?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
   const {id, title, type, price, previewImage, isFavorite, isPremium, rating} = shortOffer;
 
-  const handleMouseEnter = (cityId: string) => setCityId(cityId);
-  const handleMouseLeave = () => setCityId('');
+  const handleMouseEnter = (cityId: string) => {
+    if (setCityId) {
+      setCityId(cityId);
+    }
+  };
+  const handleMouseLeave = () => {
+    if (setCityId) {
+      setCityId('');
+    }
+  };
 
   const PlaceCardMark = (): JSX.Element => (
     <div className="place-card__mark">
@@ -28,8 +35,6 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
     'button'
   );
 
-  ScrollToTop();
-
   return (
     <article
       className="cities__card place-card"
@@ -38,7 +43,9 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
     >
       {isPremium && <PlaceCardMark />}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`/offer/${id}`}>
+        <Link
+          to={`/offers/${id}`}
+        >
           <img className="place-card__image" src={previewImage} width="260" height="200" alt={title}/>
         </Link>
       </div>
@@ -62,7 +69,10 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{title}</Link>
+          <Link
+            to={`/offers/${id}`}
+          >{title}
+          </Link>
         </h2>
         <p className="place-card__type">{OfferType[type as keyof typeof OfferType]}</p>
       </div>

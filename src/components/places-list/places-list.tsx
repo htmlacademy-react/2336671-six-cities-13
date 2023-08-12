@@ -3,7 +3,7 @@ import type { ShortOffer } from '../../types/offer';
 
 type PlacesListProps = {
   shortOffers: ShortOffer[];
-  setCityId: React.Dispatch<React.SetStateAction<string>>;
+  setCityId?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function PlacesList({shortOffers, setCityId}: PlacesListProps): JSX.Element {
