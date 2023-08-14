@@ -10,6 +10,7 @@ function Header(): JSX.Element {
 
   const authStatus = useAppSelector((store) => store.authStatus);
   const userInfo = useAppSelector((store) => store.userInfo);
+  const favorites = useAppSelector((store) => store.favorites);
   const dispatch = useAppDispatch();
 
   return (
@@ -28,7 +29,7 @@ function Header(): JSX.Element {
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
                       <span className="header__user-name user__name">{userInfo?.email}</span>
-                      <span className="header__favorite-count">3</span>
+                      <span className="header__favorite-count">{favorites.length}</span>
                     </Link>
                   </li>
                   <li className="header__nav-item">

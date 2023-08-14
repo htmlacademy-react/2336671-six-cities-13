@@ -3,6 +3,8 @@ import { OfferType } from '../../const';
 import type { ShortOffer } from '../../types/offer';
 import { calcRating } from '../../utils/common';
 import classNames from 'classnames';
+import { useAppDispatch } from '../../hooks';
+import { addToFavoriteAction } from '../../store/api-actions';
 
 type PlaceCardProps = {
   shortOffer: ShortOffer;
@@ -11,6 +13,8 @@ type PlaceCardProps = {
 
 function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
   const {id, title, type, price, previewImage, isFavorite, isPremium, rating} = shortOffer;
+
+  const dispatch = useAppDispatch();
 
   const handleMouseEnter = (cityId: string) => {
     if (setCityId) {
@@ -21,6 +25,10 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
     if (setCityId) {
       setCityId('');
     }
+  };
+
+  const handleOnFavoriteClick = () => {
+    dispatch(addToFavoriteAction({status: (!isFavorite ? 1 : 0), id: id}));
   };
 
   const PlaceCardMark = (): JSX.Element => (
@@ -55,7 +63,7 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={favClass} type="button">
+          <button className={favClass} type="button" onClick={handleOnFavoriteClick}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>

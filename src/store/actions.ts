@@ -13,6 +13,9 @@ export const changeSort = createAction<SortType>('main/changeSort');
 export const storeOffers = createAction<ShortOffer[]>('main/storeOffers');
 export const setOffersLoading = createAction<boolean>('main/setOffersLoading');
 
+export const storeFavorites = createAction<Favorite[]>('main/storeFavorites');
+export const setFavoritesLoading = createAction<boolean>('main/setFavoritesLoading');
+
 export const storeOfferDetails = createAction<OfferDetails>('main/storeOfferDetails');
 export const setOfferDetailsLoading = createAction<boolean>('main/setOfferDetailsLoading');
 
@@ -24,8 +27,6 @@ export const storeNearbyPlaces = createAction<ShortOffer[]>('main/storeNearbyPla
 export const setNearbyPlacesLoading = createAction<boolean>('main/setNearbyPlacesLoading');
 
 export const storeUserInfo = createAction<UserData>('main/storeUserInfo');
-
-export const storeFavorites = createAction<Favorite[]>('main/storeFavorites');
 
 export const requireAuth = createAction<AuthStatus>('user/requireAuth');
 
