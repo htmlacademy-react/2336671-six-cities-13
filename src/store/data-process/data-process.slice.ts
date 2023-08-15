@@ -34,7 +34,7 @@ export const dataProcess = createSlice({
         state.isOffersLoading = false;
       })
       .addCase(fetchOffersAction.rejected, (state) => {
-        state.isOffersLoading = true;
+        state.isOffersLoading = false;
       })
       .addCase(fetchOfferDetailsAction.pending, (state) => {
         state.isOfferDetailsLoading = true;
@@ -44,7 +44,7 @@ export const dataProcess = createSlice({
         state.isOfferDetailsLoading = false;
       })
       .addCase(fetchOfferDetailsAction.rejected, (state) => {
-        state.isOfferDetailsLoading = true;
+        state.isOfferDetailsLoading = false;
       })
       .addCase(fetchReviewsAction.pending, (state) => {
         state.isReviewsLoading = true;
@@ -54,7 +54,7 @@ export const dataProcess = createSlice({
         state.isReviewsLoading = false;
       })
       .addCase(fetchReviewsAction.rejected, (state) => {
-        state.isReviewsLoading = true;
+        state.isReviewsLoading = false;
       })
       .addCase(fetchNearbyPlacesAction.pending, (state) => {
         state.isNearbyPlacesLoading = true;
@@ -64,7 +64,7 @@ export const dataProcess = createSlice({
         state.isNearbyPlacesLoading = false;
       })
       .addCase(fetchNearbyPlacesAction.rejected, (state) => {
-        state.isNearbyPlacesLoading = true;
+        state.isNearbyPlacesLoading = false;
       })
       .addCase(fetchFavoritesAction.pending, (state) => {
         state.isFavoritesLoading = true;
@@ -74,7 +74,7 @@ export const dataProcess = createSlice({
         state.isFavoritesLoading = false;
       })
       .addCase(fetchFavoritesAction.rejected, (state) => {
-        state.isFavoritesLoading = true;
+        state.isFavoritesLoading = false;
       });
   },
 });
