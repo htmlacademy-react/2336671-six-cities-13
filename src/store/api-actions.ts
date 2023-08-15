@@ -13,24 +13,17 @@ import { ReviewData } from '../types/review-data';
 import { Favorite } from '../types/favorite';
 
 export const fetchOffersAction = createAsyncThunk<
-  void, undefined, {
+  ShortOffer[], undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchOffers',
   async(_arg, {dispatch, extra: api}) => {
-    try {
-      dispatch(setOffersLoading(true));
-      const {data} = await api.get<ShortOffer[]>(APIRoute.Offers);
-      dispatch(setOffersLoading(false));
-      dispatch(storeOffers(data));
-    } catch {
-      dispatch(setOffersLoading(false));
-    }
-
-  }
-);
+    dispatch(setOffersLoading(true));
+    const {data} = await api.get<ShortOffer[]>(APIRoute.Offers);
+    return data;
+  });
 
 export const fetchOfferDetailsAction = createAsyncThunk<
   void, string, {
@@ -108,26 +101,21 @@ export const fetchFavoritesAction = createAsyncThunk<
   );
 
 export const checkAuthAction = createAsyncThunk<
-  void, undefined, {
+  UserData, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
   async(_arg, {dispatch, extra: api}) => {
-    try {
-      const {data} = await api.get<UserData>(APIRoute.Login);
-      dispatch(requireAuth(AuthStatus.Auth));
-      dispatch(storeUserInfo(data));
-      dispatch(fetchFavoritesAction());
-    } catch {
-      dispatch(requireAuth(AuthStatus.NoAuth));
-    }
+    const {data} = await api.get<UserData>(APIRoute.Login);
+    dispatch(fetchFavoritesAction());
+    return data;
   }
 );
 
 export const loginAction = createAsyncThunk<
-  void, AuthData, {
+UserData, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -139,10 +127,8 @@ export const loginAction = createAsyncThunk<
     const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
 
     saveToken(data.token);
-    dispatch(storeUserInfo(data));
-    dispatch(fetchOffersAction());
-    dispatch(requireAuth(AuthStatus.Auth));
     dispatch(redirectToRoute(AppRoute.Root));
+    return data;
   }
 );
 
@@ -157,7 +143,6 @@ void, undefined, {
     await api.delete(APIRoute.Logout);
 
     removeToken();
-    dispatch(requireAuth(AuthStatus.NoAuth));
     dispatch(fetchOffersAction());
   }
 );

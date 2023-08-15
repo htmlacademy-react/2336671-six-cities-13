@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import { OfferType } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { addToFavoriteAction } from '../../store/api-actions';
 import { Favorite } from '../../types/favorite';
@@ -27,9 +29,9 @@ function FavoriteCard ({offer}: FavoriteCardProps): JSX.Element {
     <article className="favorites__card place-card">
       {isPremium && <PlaceCardMark />}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={`/offers/${id}`}>
           <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image"/>
-        </a>
+        </Link>
       </div>
       <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
@@ -55,9 +57,11 @@ function FavoriteCard ({offer}: FavoriteCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`/offers/${id}`}>
+            {title}
+          </Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{OfferType[type as keyof typeof OfferType]}</p>
       </div>
     </article>
   );

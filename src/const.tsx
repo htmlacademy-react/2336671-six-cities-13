@@ -56,3 +56,9 @@ export enum MapType {
   Offer = 'offer',
   Cities = 'cities',
 }
+
+export enum NameSpace {
+  Data = 'DATA',
+  App = 'APP',
+  User = 'USER',
+}

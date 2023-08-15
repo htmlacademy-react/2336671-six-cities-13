@@ -9,7 +9,7 @@ import Map from '../../components/map/map';
 import PageNotFoundScreen from '../page-not-found-screen/page-not-found-screen';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useParams } from 'react-router-dom';
-import { fetchNearbyPlacesAction, fetchOfferDetailsAction, fetchReviewsAction } from '../../store/api-actions';
+import { addToFavoriteAction, fetchNearbyPlacesAction, fetchOfferDetailsAction, fetchReviewsAction } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { useEffect } from 'react';
 import PlacesList from '../../components/places-list/places-list';
@@ -48,6 +48,10 @@ function OfferScreen(): JSX.Element {
   }
 
   const {title, description, type, price, bedrooms, maxAdults, rating, isPremium, isFavorite, goods, host, images, city} = offerDetails;
+
+  const handleOnFavoriteClick = () => {
+    dispatch(addToFavoriteAction({status: (!isFavorite ? 1 : 0), id: params.ids as string}));
+  };
 
   const favClass = classNames(
     'offer__bookmark-button', 'button',
@@ -134,7 +138,7 @@ function OfferScreen(): JSX.Element {
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                <button className={favClass} type="button">
+                <button className={favClass} type="button" onClick={handleOnFavoriteClick}>
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
