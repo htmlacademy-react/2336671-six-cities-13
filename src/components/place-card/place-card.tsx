@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
-import { OfferType } from '../../const';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppRoute, AuthStatus, OfferType } from '../../const';
 import type { ShortOffer } from '../../types/offer';
 import { calcRating } from '../../utils/common';
 import classNames from 'classnames';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addToFavoriteAction } from '../../store/api-actions';
+import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 
 type PlaceCardProps = {
   shortOffer: ShortOffer;
@@ -15,6 +16,9 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
   const {id, title, type, price, previewImage, isFavorite, isPremium, rating} = shortOffer;
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const authStatus = useAppSelector(getAuthStatus);
 
   const handleMouseEnter = (cityId: string) => {
     if (setCityId) {
@@ -28,7 +32,11 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
   };
 
   const handleOnFavoriteClick = () => {
-    dispatch(addToFavoriteAction({status: (!isFavorite ? 1 : 0), id: id}));
+    if (authStatus === AuthStatus.Auth) {
+      dispatch(addToFavoriteAction({status: (!isFavorite ? 1 : 0), id: id}));
+      return;
+    }
+    navigate(AppRoute.Login);
   };
 
   const PlaceCardMark = (): JSX.Element => (

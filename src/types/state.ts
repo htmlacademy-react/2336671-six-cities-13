@@ -31,5 +31,4 @@ export type DataProcess = {
 export type AppProcess = {
   city: string;
   sort: SortType;
-  error: string | null;
 };

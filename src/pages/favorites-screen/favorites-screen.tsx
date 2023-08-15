@@ -4,10 +4,11 @@ import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
 import FavoritesListGroup from '../../components/favorites-list-group/favorites-list-group';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
+import { getFavorites } from '../../store/data-process/data-process.selectors';
 
 function FavoritesScreen(): JSX.Element {
 
-  const favoriteOffers = useAppSelector((store) => store.favorites);
+  const favoriteOffers = useAppSelector(getFavorites);
 
   return (
     <div className={favoriteOffers.length ? 'page' : 'page page--favorites-empty'}>

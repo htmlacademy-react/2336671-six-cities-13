@@ -84,6 +84,7 @@ export const checkAuthAction = createAsyncThunk<
   'user/checkAuth',
   async(_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<UserData>(APIRoute.Login);
+    dispatch(fetchOffersAction());
     dispatch(fetchFavoritesAction());
     return data;
   }
@@ -102,6 +103,7 @@ UserData, AuthData, {
     const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
 
     saveToken(data.token);
+    dispatch(fetchOffersAction());
     dispatch(redirectToRoute(AppRoute.Root));
     return data;
   }
@@ -116,7 +118,7 @@ void, undefined, {
   'user/logout',
   async(_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.Logout);
-
+    console.log('logout');
     removeToken();
     dispatch(fetchOffersAction());
   }

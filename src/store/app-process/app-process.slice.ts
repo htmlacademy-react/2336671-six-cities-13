@@ -8,7 +8,6 @@ const DEFAULT_SORT = SortType.Popular;
 const initialState: AppProcess = {
   city: DEFAULT_CITY,
   sort: DEFAULT_SORT,
-  error: null,
 };
 
 export const appProcess = createSlice({

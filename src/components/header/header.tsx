@@ -5,18 +5,15 @@ import { AuthStatus } from '../../const';
 import { AppRoute } from '../../const';
 import { Fragment } from 'react';
 import { logoutAction } from '../../store/api-actions';
+import { getAuthStatus, getUserInfo } from '../../store/user-process/user-process.selectors';
+import { getFavorites } from '../../store/data-process/data-process.selectors';
 
 function Header(): JSX.Element {
 
-  const authStatus = useAppSelector((store) => store.authStatus);
-  const userInfo = useAppSelector((store) => store.userInfo);
-  const favorites = useAppSelector((store) => store.favorites);
+  const authStatus = useAppSelector(getAuthStatus);
+  const userInfo = useAppSelector(getUserInfo);
+  const favorites = useAppSelector(getFavorites);
   const dispatch = useAppDispatch();
-
-  const handleLogout = (evt: MouseEvent) => {
-    evt.preventDefault();
-    dispatch(logoutAction());
-  };
 
   return (
     <header className="header">
@@ -41,7 +38,10 @@ function Header(): JSX.Element {
                     <Link
                       className="header__nav-link"
                       to="/"
-                      onClick={() => handleLogout}
+                      onClick={(evt) => {
+                        evt.preventDefault();
+                        dispatch(logoutAction());
+                      }}
                     >
                       <span className="header__signout">Sign out</span>
                     </Link>

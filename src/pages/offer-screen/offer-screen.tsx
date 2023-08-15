@@ -1,33 +1,36 @@
 import Header from '../../components/header/header';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
-import { AuthStatus, MapType, OfferType } from '../../const';
+import { AppRoute, AuthStatus, MapType, OfferType } from '../../const';
 import { calcRating } from '../../utils/common';
 import classNames from 'classnames';
 import { Helmet } from 'react-helmet-async';
 import Map from '../../components/map/map';
 import PageNotFoundScreen from '../page-not-found-screen/page-not-found-screen';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { addToFavoriteAction, fetchNearbyPlacesAction, fetchOfferDetailsAction, fetchReviewsAction } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { useEffect } from 'react';
 import PlacesList from '../../components/places-list/places-list';
 import ScrollToTop from '../../utils/scroll';
+import { getIsNearbyPlacesLoading, getIsOfferDetailsLoading, getIsReviewsLoading, getNearbyPlaces, getOfferDetails, getReviews } from '../../store/data-process/data-process.selectors';
+import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 
 function OfferScreen(): JSX.Element {
 
   const params = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const offerDetails = useAppSelector((store) => store.offerDetails);
-  const reviews = useAppSelector((store) => store.reviews);
+  const offerDetails = useAppSelector(getOfferDetails);
+  const reviews = useAppSelector(getReviews);
   const lastReviwes = reviews.slice(-10);
-  const nearbyPlaces = useAppSelector((store) => store.nearbyPlaces);
-  const authStatus = useAppSelector((store) => store.authStatus);
-  const isOfferDetailsLoading = useAppSelector((store) => store.isOfferDetailsLoading);
-  const isReviewsLoading = useAppSelector((store) => store.isReviewsLoading);
-  const isNearbyPlacesLoading = useAppSelector((store) => store.isNearbyPlacesLoading);
+  const nearbyPlaces = useAppSelector(getNearbyPlaces);
+  const authStatus = useAppSelector(getAuthStatus);
+  const isOfferDetailsLoading = useAppSelector(getIsOfferDetailsLoading);
+  const isReviewsLoading = useAppSelector(getIsReviewsLoading);
+  const isNearbyPlacesLoading = useAppSelector(getIsNearbyPlacesLoading);
 
   const tempPlaces = nearbyPlaces?.slice(0, 3);
 
@@ -50,7 +53,11 @@ function OfferScreen(): JSX.Element {
   const {title, description, type, price, bedrooms, maxAdults, rating, isPremium, isFavorite, goods, host, images, city} = offerDetails;
 
   const handleOnFavoriteClick = () => {
-    dispatch(addToFavoriteAction({status: (!isFavorite ? 1 : 0), id: params.ids as string}));
+    if (authStatus === AuthStatus.Auth) {
+      dispatch(addToFavoriteAction({status: (!isFavorite ? 1 : 0), id: params.ids as string}));
+      return;
+    }
+    navigate(AppRoute.Login);
   };
 
   const favClass = classNames(

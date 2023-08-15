@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
-import { OfferType } from '../../const';
-import { useAppDispatch } from '../../hooks';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppRoute, AuthStatus, OfferType } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addToFavoriteAction } from '../../store/api-actions';
 import { Favorite } from '../../types/favorite';
 import { calcRating } from '../../utils/common';
+import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 
 type FavoriteCardProps = {
   offer: Favorite;
@@ -14,9 +15,16 @@ function FavoriteCard ({offer}: FavoriteCardProps): JSX.Element {
   const {previewImage, price, title, type, isPremium, rating, isFavorite, id} = offer;
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const authStatus = useAppSelector(getAuthStatus);
 
   const handleOnFavoriteClick = () => {
-    dispatch(addToFavoriteAction({status: (!isFavorite ? 1 : 0), id: id}));
+    if (authStatus === AuthStatus.Auth) {
+      dispatch(addToFavoriteAction({status: (!isFavorite ? 1 : 0), id: id}));
+      return;
+    }
+    navigate(AppRoute.Login);
   };
 
   const PlaceCardMark = (): JSX.Element => (

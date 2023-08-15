@@ -30,6 +30,7 @@ export const userProcess = createSlice({
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authStatus = AuthStatus.NoAuth;
+        state.userInfo = null;
       });
   },
 });
