@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { DataProcess } from '../../types/state';
 import { fetchFavoritesAction, fetchNearbyPlacesAction, fetchOfferDetailsAction, fetchOffersAction, fetchReviewsAction } from '../api-actions';
@@ -20,8 +20,8 @@ export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
   reducers: {
-    setOffersLoading: (state, action: PayloadAction<boolean>) => {
-      state.isOffersLoading = action.payload;
+    removeFavorites: (state) => {
+      state.favorites = [];
     },
   },
   extraReducers(builder) {
@@ -78,3 +78,5 @@ export const dataProcess = createSlice({
       });
   },
 });
+
+export const {removeFavorites} = dataProcess.actions;

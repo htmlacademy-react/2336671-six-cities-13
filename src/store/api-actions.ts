@@ -11,6 +11,7 @@ import { OfferDetails } from '../types/offer-details';
 import { Review } from '../types/review';
 import { ReviewData } from '../types/review-data';
 import { Favorite } from '../types/favorite';
+import { removeFavorites } from './data-process/data-process.slice';
 
 export const fetchOffersAction = createAsyncThunk<
   ShortOffer[], undefined, {
@@ -84,7 +85,6 @@ export const checkAuthAction = createAsyncThunk<
   'user/checkAuth',
   async(_arg, {dispatch, extra: api}) => {
     const {data} = await api.get<UserData>(APIRoute.Login);
-    dispatch(fetchOffersAction());
     dispatch(fetchFavoritesAction());
     return data;
   }
@@ -104,6 +104,7 @@ UserData, AuthData, {
 
     saveToken(data.token);
     dispatch(fetchOffersAction());
+    dispatch(fetchFavoritesAction());
     dispatch(redirectToRoute(AppRoute.Root));
     return data;
   }
@@ -119,6 +120,7 @@ void, undefined, {
   async(_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.Logout);
     removeToken();
+    dispatch(removeFavorites());
     dispatch(fetchOffersAction());
   }
 );
