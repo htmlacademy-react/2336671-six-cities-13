@@ -1,35 +1,23 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthStatus, OfferType } from '../../const';
-import type { ShortOffer } from '../../types/offer';
-import { calcRating } from '../../utils/common';
-import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addToFavoriteAction } from '../../store/api-actions';
+import { Favorite } from '../../types/favorite';
+import { calcRating } from '../../utils/common';
 import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 
-type PlaceCardProps = {
-  shortOffer: ShortOffer;
-  setCityId?: React.Dispatch<React.SetStateAction<string>>;
+type FavoriteCardProps = {
+  offer: Favorite;
 }
 
-function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
-  const {id, title, type, price, previewImage, isFavorite, isPremium, rating} = shortOffer;
+function FavoriteCard ({offer}: FavoriteCardProps): JSX.Element {
+
+  const {previewImage, price, title, type, isPremium, rating, isFavorite, id} = offer;
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const authStatus = useAppSelector(getAuthStatus);
-
-  const handleMouseEnter = (cityId: string) => {
-    if (setCityId) {
-      setCityId(cityId);
-    }
-  };
-  const handleMouseLeave = () => {
-    if (setCityId) {
-      setCityId('');
-    }
-  };
 
   const handleOnFavoriteClick = () => {
     if (authStatus === AuthStatus.Auth) {
@@ -45,37 +33,29 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
     </div>
   );
 
-  const favClass = classNames(
-    'place-card__bookmark-button',
-    {'place-card__bookmark-button--active': isFavorite},
-    'button'
-  );
-
-  return (
-    <article
-      className="cities__card place-card"
-      onMouseEnter={() => handleMouseEnter(id)}
-      onMouseLeave={handleMouseLeave}
-    >
+  return(
+    <article className="favorites__card place-card">
       {isPremium && <PlaceCardMark />}
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link
-          to={`/offers/${id}`}
-        >
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt={title}/>
+      <div className="favorites__image-wrapper place-card__image-wrapper">
+        <Link to={`/offers/${id}`}>
+          <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image"/>
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={favClass} type="button" onClick={handleOnFavoriteClick}>
+          <button
+            className="place-card__bookmark-button place-card__bookmark-button--active button"
+            type="button"
+            onClick={handleOnFavoriteClick}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            <span className="visually-hidden">To bookmarks</span>
+            <span className="visually-hidden">In bookmarks</span>
           </button>
         </div>
         <div className="place-card__rating rating">
@@ -85,9 +65,8 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link
-            to={`/offers/${id}`}
-          >{title}
+          <Link to={`/offers/${id}`}>
+            {title}
           </Link>
         </h2>
         <p className="place-card__type">{OfferType[type as keyof typeof OfferType]}</p>
@@ -96,4 +75,4 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
   );
 }
 
-export default PlaceCard;
+export default FavoriteCard;

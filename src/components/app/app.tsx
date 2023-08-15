@@ -12,11 +12,13 @@ import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import { getAuthStatus } from '../../store/user-process/user-process.selectors';
+import { getIsOffersLoading } from '../../store/data-process/data-process.selectors';
 
 function App(): JSX.Element {
 
-  const authStatus = useAppSelector((state) => state.authStatus);
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const authStatus = useAppSelector(getAuthStatus);
+  const isOffersLoading = useAppSelector(getIsOffersLoading);
 
   if (authStatus === AuthStatus.Unknown || isOffersLoading) {
     return (

@@ -11,12 +11,14 @@ import Sort from '../../components/sort/sort';
 import { getSortedCityOffers } from '../../utils/common';
 import MainEmpty from '../../components/main-empty/main-empty';
 import classNames from 'classnames';
+import { getCity, getSortType } from '../../store/app-process/app-process.selectors';
+import { getOffers } from '../../store/data-process/data-process.selectors';
 
 function MainScreen(): JSX.Element {
 
-  const city = useAppSelector((store) => store.city);
-  const offers = useAppSelector((store) => store.offers);
-  const sortType = useAppSelector((store) => store.sort);
+  const city = useAppSelector(getCity);
+  const offers = useAppSelector(getOffers);
+  const sortType = useAppSelector(getSortType);
 
   const currentCitySsortedOffers = getSortedCityOffers(city, offers, sortType);
 
@@ -50,7 +52,8 @@ function MainScreen(): JSX.Element {
                 <Map
                   city={currentCitySsortedOffers[0].city}
                   offers={currentCitySsortedOffers}
-                  hoveredPlaceId={hoveredCityId} mapType={MapType.Cities}
+                  hoveredPlaceId={hoveredCityId}
+                  mapType={MapType.Cities}
                 />
               </div>
             </div>

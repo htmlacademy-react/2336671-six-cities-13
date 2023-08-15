@@ -4,6 +4,7 @@ export enum APIRoute {
   Logout = '/logout',
   Reviews = '/comments',
   Nearby = '/nearby',
+  Favorite = '/favorite',
 }
 
 export enum AppRoute {
@@ -54,4 +55,10 @@ export const CitiesList = [
 export enum MapType {
   Offer = 'offer',
   Cities = 'cities',
+}
+
+export enum NameSpace {
+  Data = 'DATA',
+  App = 'APP',
+  User = 'USER',
 }

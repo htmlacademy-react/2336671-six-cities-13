@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { CitiesList } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeCity } from '../../store/actions';
+import { getCity } from '../../store/app-process/app-process.selectors';
+import { changeCity } from '../../store/app-process/app-process.slice';
 
 function Cities(): JSX.Element {
   const dispatch = useAppDispatch();
-  const city = useAppSelector((store) => store.city);
+  const city = useAppSelector(getCity);
 
   function handleCityClick(value: string) {
     dispatch(changeCity(value));

@@ -9,7 +9,12 @@ type PlacesListProps = {
 function PlacesList({shortOffers, setCityId}: PlacesListProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
-      {shortOffers.map((value) => <PlaceCard key={value.id} shortOffer={value} setCityId={setCityId}/>)}
+      {shortOffers.map((value) => (
+        <PlaceCard
+          key={value.id}
+          shortOffer={value}
+          setCityId={setCityId}
+        />))}
     </div>
   );
 }
