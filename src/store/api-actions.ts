@@ -118,7 +118,6 @@ void, undefined, {
   'user/logout',
   async(_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.Logout);
-    console.log('logout');
     removeToken();
     dispatch(fetchOffersAction());
   }
