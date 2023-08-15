@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { SortType } from '../../const';
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeSort } from '../../store/actions';
+import { getSortType } from '../../store/app-process/app-process.selectors';
+import { changeSort } from '../../store/app-process/app-process.slice';
 
 function Sort(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const [isSortOpen, setSortOpen] = useState(false);
-  const currentSortType = useAppSelector((store) => store.sort);
+  const currentSortType = useAppSelector(getSortType);
 
   const sortClass = classNames({
     'places__options': true,

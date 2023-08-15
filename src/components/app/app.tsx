@@ -15,8 +15,8 @@ import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
 
-  const authStatus = useAppSelector((state) => state.authStatus);
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const authStatus = useAppSelector((state) => state.USER.authStatus);
+  const isOffersLoading = useAppSelector((state) => state.DATA.isOffersLoading);
 
   if (authStatus === AuthStatus.Unknown || isOffersLoading) {
     return (
