@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { DataProcess } from '../../types/state';
 import { fetchFavoritesAction, fetchNearbyPlacesAction, fetchOfferDetailsAction, fetchOffersAction, fetchReviewsAction } from '../api-actions';
+import { getSortedByDateAndCropedReviews } from '../../utils/common';
 
 const initialState: DataProcess = {
   offers: [],
@@ -50,7 +51,8 @@ export const dataProcess = createSlice({
         state.isReviewsLoading = true;
       })
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
-        state.reviews = action.payload;
+        const reviesSortedCorped = getSortedByDateAndCropedReviews(action.payload);
+        state.reviews = reviesSortedCorped;
         state.isReviewsLoading = false;
       })
       .addCase(fetchReviewsAction.rejected, (state) => {

@@ -25,7 +25,7 @@ function OfferScreen(): JSX.Element {
 
   const offerDetails = useAppSelector(getOfferDetails);
   const reviews = useAppSelector(getReviews);
-  const lastReviwes = reviews.slice(-10);
+
   const nearbyPlaces = useAppSelector(getNearbyPlaces);
   const authStatus = useAppSelector(getAuthStatus);
   const isOfferDetailsLoading = useAppSelector(getIsOfferDetailsLoading);
@@ -189,7 +189,7 @@ function OfferScreen(): JSX.Element {
               </div>
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewsList reviews={lastReviwes} />
+                <ReviewsList reviews={reviews} />
                 {authStatus === AuthStatus.Auth && <ReviewForm />}
               </section>
             </div>
