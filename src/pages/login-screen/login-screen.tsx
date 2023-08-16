@@ -3,7 +3,7 @@ import Logo from '../../components/logo/logo';
 import { Link } from 'react-router-dom';
 import { FormEvent, useRef } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { fetchFavoritesAction, loginAction } from '../../store/api-actions';
+import { loginAction } from '../../store/api-actions';
 
 function LoginScreen(): JSX.Element {
 
@@ -20,7 +20,6 @@ function LoginScreen(): JSX.Element {
         login: loginRef.current.value,
         password: passwordRef.current.value,
       }));
-      dispatch(fetchFavoritesAction());
     }
   };
 
