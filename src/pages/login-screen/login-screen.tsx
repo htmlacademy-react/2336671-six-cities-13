@@ -4,13 +4,11 @@ import { Link } from 'react-router-dom';
 import { FormEvent, useRef } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { toast } from 'react-toastify';
 
 function LoginScreen(): JSX.Element {
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const passRegexp = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
 
   const dispatch = useAppDispatch();
 
@@ -18,10 +16,6 @@ function LoginScreen(): JSX.Element {
     evt.preventDefault();
 
     if(loginRef.current !== null && passwordRef.current !== null) {
-      // if (!passRegexp.test(passwordRef.current.value)) {
-      //   toast.warn('The password must contain at least one letter and a number.');
-      //   return;
-      // }
       dispatch(loginAction({
         login: loginRef.current.value,
         password: passwordRef.current.value,
