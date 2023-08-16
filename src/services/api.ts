@@ -4,8 +4,13 @@ import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
 
 export type DetailMessageType = {
-  type: string;
+  errorType: string;
   message: string;
+  details: [Message];
+}
+
+type Message = {
+  messages: [string];
 }
 
 const StatusCodeMapping: Record<number, boolean> = {
@@ -40,10 +45,15 @@ export const createApi = (): AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError<DetailMessageType>) => {
+
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = (error.response.data);
 
         toast.warn(detailMessage.message);
+
+        if (detailMessage.details[0].messages.length > 0) {
+          detailMessage.details[0].messages.forEach((message) => toast.error(message));
+        }
       }
 
       throw error;
