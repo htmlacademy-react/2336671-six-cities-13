@@ -4,11 +4,15 @@ import { Link } from 'react-router-dom';
 import { FormEvent, useRef } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
+import { getRandomArrayElement } from '../../utils/common';
+import { CitiesList } from '../../const';
+import { changeCity } from '../../store/app-process/app-process.slice';
 
 function LoginScreen(): JSX.Element {
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const loginRandomCity = getRandomArrayElement(CitiesList as []);
 
   const dispatch = useAppDispatch();
 
@@ -75,8 +79,13 @@ function LoginScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to="/">
-                <span>Amsterdam</span>
+              <Link
+                className="locations__item-link" to="/"
+                onClick={() => {
+                  dispatch(changeCity(loginRandomCity));
+                }}
+              >
+                <span>{loginRandomCity}</span>
               </Link>
             </div>
           </section>
