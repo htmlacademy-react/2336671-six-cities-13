@@ -9,8 +9,13 @@ import { Favorite } from '../types/favorite';
 import { Review } from '../types/review';
 import { OfferDetails } from '../types/offer-details';
 import { createApi } from '../services/api';
+import { Action } from 'redux';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { State } from '../types/state';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createApi>, Action>;
+
+export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
 
 export const getFakeUserData = (): UserData => ({
   name: name.title(),
