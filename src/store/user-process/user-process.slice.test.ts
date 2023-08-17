@@ -1,5 +1,5 @@
 import { AuthStatus } from '../../const';
-import { getFakeUserData } from '../../utils/moks';
+import { getFakeUserData } from '../../utils/mocks';
 import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
 import { userProcess } from './user-process.slice';
 

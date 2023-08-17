@@ -1,5 +1,5 @@
 import { Favorite } from '../../types/favorite';
-import { getFakeFavorite, getFakeOfferDetails, getFakeReview, getFakeShortOffer } from '../../utils/moks';
+import { getFakeFavorite, getFakeOfferDetails, getFakeReview, getFakeShortOffer } from '../../utils/mocks';
 import { fetchNearbyPlacesAction } from '../api-actions';
 import { fetchReviewsAction } from '../api-actions';
 import { fetchOfferDetailsAction } from '../api-actions';

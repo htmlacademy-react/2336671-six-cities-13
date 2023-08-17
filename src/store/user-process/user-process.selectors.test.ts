@@ -1,5 +1,5 @@
 import { AuthStatus, NameSpace } from '../../const';
-import { getFakeUserData } from '../../utils/moks';
+import { getFakeUserData } from '../../utils/mocks';
 import { getAuthStatus, getUserInfo } from './user-process.selectors';
 
 describe ('User process selectors test', () => {
