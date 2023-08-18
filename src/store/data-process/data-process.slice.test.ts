@@ -25,7 +25,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: true,
       isReviewsLoading: true,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const result = dataProcess.reducer(expectedState, emptyAction);
     expect(result).toEqual(expectedState);
@@ -43,7 +44,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
 
     const result = dataProcess.reducer(undefined, emptyAction);
@@ -61,7 +63,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: true,
       isReviewsLoading: true,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
 
     const expectedFavorites: Favorite[] = [];
@@ -80,7 +83,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
 
     const expectedState = true;
@@ -99,7 +103,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const expectedState = {
       offers: [offers],
@@ -111,7 +116,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const result = dataProcess.reducer(initialState, fetchOffersAction.fulfilled([offers], '', undefined));
     expect(result).toEqual(expectedState);
@@ -128,7 +134,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const expectedState = {
       offers: [],
@@ -140,7 +147,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: true,
     };
     const result = dataProcess.reducer(initialState, fetchOffersAction.rejected);
     expect(result).toEqual(expectedState);
@@ -157,7 +165,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
 
     const expectedState = {
@@ -170,7 +179,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: true,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const result = dataProcess.reducer(initialState, fetchFavoritesAction.pending);
     expect(result).toEqual(expectedState);
@@ -187,7 +197,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: true,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const expectedState = {
       offers: [],
@@ -199,7 +210,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const result = dataProcess.reducer(initialState, fetchFavoritesAction.fulfilled([favorites], '', undefined));
     expect(result).toEqual(expectedState);
@@ -216,7 +228,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: true,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const expectedState = {
       offers: [],
@@ -228,7 +241,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const result = dataProcess.reducer(initialState, fetchFavoritesAction.rejected);
     expect(result).toEqual(expectedState);
@@ -245,7 +259,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
 
     const expectedState = {
@@ -258,7 +273,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: true,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const result = dataProcess.reducer(initialState, fetchOfferDetailsAction.pending);
     expect(result).toEqual(expectedState);
@@ -275,7 +291,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const expectedState = {
       offers: [],
@@ -287,7 +304,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const result = dataProcess.reducer(initialState, fetchOfferDetailsAction.fulfilled(offerDetails, '', '123'));
     expect(result).toEqual(expectedState);
@@ -304,7 +322,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: true,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const expectedState = {
       offers: [],
@@ -316,7 +335,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const result = dataProcess.reducer(initialState, fetchOfferDetailsAction.rejected);
     expect(result).toEqual(expectedState);
@@ -333,7 +353,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
 
     const expectedState = {
@@ -346,7 +367,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: true,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const result = dataProcess.reducer(initialState, fetchReviewsAction.pending);
     expect(result).toEqual(expectedState);
@@ -363,7 +385,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: true,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const expectedState = {
       offers: [],
@@ -375,7 +398,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const result = dataProcess.reducer(initialState, fetchReviewsAction.fulfilled([reviews], '', '123'));
     expect(result).toEqual(expectedState);
@@ -392,7 +416,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: true,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const expectedState = {
       offers: [],
@@ -404,7 +429,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const result = dataProcess.reducer(initialState, fetchReviewsAction.rejected);
     expect(result).toEqual(expectedState);
@@ -421,7 +447,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
 
     const expectedState = {
@@ -434,7 +461,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: true
+      isNearbyPlacesLoading: true,
+      hasError: false,
     };
     const result = dataProcess.reducer(initialState, fetchNearbyPlacesAction.pending);
     expect(result).toEqual(expectedState);
@@ -451,7 +479,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: true
+      isNearbyPlacesLoading: true,
+      hasError: false,
     };
     const expectedState = {
       offers: [],
@@ -463,7 +492,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const result = dataProcess.reducer(initialState, fetchNearbyPlacesAction.fulfilled([offers], '', '123'));
     expect(result).toEqual(expectedState);
@@ -480,7 +510,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: true
+      isNearbyPlacesLoading: true,
+      hasError: false,
     };
     const expectedState = {
       offers: [],
@@ -492,7 +523,8 @@ describe('Data prosecc slice', () => {
       isFavoritesLoading: false,
       isOfferDetailsLoading: false,
       isReviewsLoading: false,
-      isNearbyPlacesLoading: false
+      isNearbyPlacesLoading: false,
+      hasError: false,
     };
     const result = dataProcess.reducer(initialState, fetchNearbyPlacesAction.rejected);
     expect(result).toEqual(expectedState);

@@ -43,7 +43,7 @@ function Map({city, offers, currentPlace, hoveredPlaceId, mapType}: MapProps): J
           lat: currentPlace.location.latitude,
           lng: currentPlace.location.longitude,
         }, {
-          icon:  currentMarker,
+          icon: currentMarker,
         }).addTo(map);
       }
 
