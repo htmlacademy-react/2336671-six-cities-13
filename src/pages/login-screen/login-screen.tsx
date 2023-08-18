@@ -12,7 +12,7 @@ function LoginScreen(): JSX.Element {
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const loginRandomCity = getRandomArrayElement(CitiesList as []);
+  const loginRandomCity = getRandomArrayElement(CitiesList);
 
   const dispatch = useAppDispatch();
 

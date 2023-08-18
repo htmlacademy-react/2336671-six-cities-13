@@ -3,7 +3,7 @@ import Logo from '../logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthStatus } from '../../const';
 import { AppRoute } from '../../const';
-import { Fragment } from 'react';
+import { Fragment, memo } from 'react';
 import { logoutAction } from '../../store/api-actions';
 import { getAuthStatus, getUserInfo } from '../../store/user-process/user-process.selectors';
 import { getFavorites } from '../../store/data-process/data-process.selectors';
@@ -60,4 +60,4 @@ function Header(): JSX.Element {
   );
 }
 
-export default Header;
+export default memo(Header);

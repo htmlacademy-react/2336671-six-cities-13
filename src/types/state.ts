@@ -26,6 +26,7 @@ export type DataProcess = {
   isOfferDetailsLoading: boolean;
   isReviewsLoading: boolean;
   isNearbyPlacesLoading: boolean;
+  hasError: boolean;
 }
 
 export type AppProcess = {

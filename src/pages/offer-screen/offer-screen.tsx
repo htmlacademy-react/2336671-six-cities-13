@@ -17,6 +17,83 @@ import ScrollToTop from '../../utils/scroll';
 import { getIsNearbyPlacesLoading, getIsOfferDetailsLoading, getIsReviewsLoading, getNearbyPlaces, getOfferDetails, getReviews } from '../../store/data-process/data-process.selectors';
 import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 
+type OfferGalleryProps = {
+  images: string[];
+}
+
+type OfferInsideListProps = {
+  goods: string[];
+}
+
+type HostUserProps = {
+  host: {
+    isPro: boolean;
+    name: string;
+    avatarUrl: string;
+  };
+}
+
+function OfferGallery({images}: OfferGalleryProps): JSX.Element {
+  return (
+    <div className="offer__gallery">
+      {images.map((value) => (
+        <div className="offer__image-wrapper" key={value}>
+          <img className="offer__image" src={value} alt="Photo studio"/>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function OfferMark(): JSX.Element {
+  return (
+    <div className="offer__mark">
+      <span>Premium</span>
+    </div>
+  );
+}
+
+function OfferInsideList({goods}: OfferInsideListProps): JSX.Element {
+  return (
+    <ul className="offer__inside-list">
+      {goods.map((value) => (
+        <li className="offer__inside-item" key={value}>
+          {value}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function ProHost(): JSX.Element {
+  return (
+    <span className="offer__user-status">
+      Pro
+    </span>
+  );
+}
+
+function HostUser({host}: HostUserProps): JSX.Element {
+
+  let hostUserClass = classNames('offer__avatar-wrapper', 'user__avatar-wrapper');
+
+  if (host.isPro) {
+    hostUserClass += ' offer__avatar-wrapper--pro';
+  }
+
+  return (
+    <div className="offer__host-user user">
+      <div className={hostUserClass}>
+        <img className="offer__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar"/>
+      </div>
+      <span className="offer__user-name">
+        {host.name}
+      </span>
+      {host.isPro && <ProHost />}
+    </div>
+  );
+}
+
 function OfferScreen(): JSX.Element {
 
   const params = useParams();
@@ -52,7 +129,7 @@ function OfferScreen(): JSX.Element {
 
   const {title, description, type, price, bedrooms, maxAdults, rating, isPremium, isFavorite, goods, host, images, city} = offerDetails;
 
-  const handleOnFavoriteClick = () => {
+  const handleFavoriteClick = () => {
     if (authStatus === AuthStatus.Auth) {
       dispatch(addToFavoriteAction({status: (!isFavorite ? 1 : 0), id: params.ids as string}));
       return;
@@ -65,67 +142,6 @@ function OfferScreen(): JSX.Element {
     {'offer__bookmark-button--active': isFavorite},
   );
 
-  function OfferGallery(): JSX.Element {
-    return (
-      <div className="offer__gallery">
-        {images.map((value) => (
-          <div className="offer__image-wrapper" key={value}>
-            <img className="offer__image" src={value} alt="Photo studio"/>
-          </div>
-        ))}
-      </div>
-    );
-  }
-
-  function OfferMark(): JSX.Element {
-    return (
-      <div className="offer__mark">
-        <span>Premium</span>
-      </div>
-    );
-  }
-
-  function OfferInsideList(): JSX.Element {
-    return (
-      <ul className="offer__inside-list">
-        {goods.map((value) => (
-          <li className="offer__inside-item" key={value}>
-            {value}
-          </li>
-        ))}
-      </ul>
-    );
-  }
-
-  function ProHost(): JSX.Element {
-    return (
-      <span className="offer__user-status">
-        Pro
-      </span>
-    );
-  }
-
-  function HostUser(): JSX.Element {
-
-    let hostUserClass = classNames('offer__avatar-wrapper', 'user__avatar-wrapper');
-
-    if (host.isPro) {
-      hostUserClass += ' offer__avatar-wrapper--pro';
-    }
-
-    return (
-      <div className="offer__host-user user">
-        <div className={hostUserClass}>
-          <img className="offer__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar"/>
-        </div>
-        <span className="offer__user-name">
-          {host.name}
-        </span>
-        {host.isPro && <ProHost />}
-      </div>
-    );
-  }
-
   return (
     <div className="page">
       <Helmet>
@@ -136,7 +152,7 @@ function OfferScreen(): JSX.Element {
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
-            <OfferGallery />
+            <OfferGallery images={images} />
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
@@ -145,7 +161,7 @@ function OfferScreen(): JSX.Element {
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                <button className={favClass} type="button" onClick={handleOnFavoriteClick}>
+                <button className={favClass} type="button" onClick={handleFavoriteClick}>
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -176,11 +192,11 @@ function OfferScreen(): JSX.Element {
               </div>
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
-                <OfferInsideList />
+                <OfferInsideList goods={goods} />
               </div>
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
-                <HostUser />
+                <HostUser host={host} />
                 <div className="offer__description">
                   <p className="offer__text">
                     {description}

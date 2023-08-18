@@ -7,6 +7,7 @@ import { Favorite } from '../../types/favorite';
 
 export const getOffers = (state: Pick<State, NameSpace.Data>): ShortOffer[] => state[NameSpace.Data].offers;
 export const getIsOffersLoading = (state: Pick<State, NameSpace.Data>): boolean => state[NameSpace.Data].isOffersLoading;
+export const getError = (state: Pick<State, NameSpace.Data>): boolean => state[NameSpace.Data].hasError;
 
 export const getOfferDetails = (state: Pick<State, NameSpace.Data>): OfferDetails => state[NameSpace.Data].offerDetails as OfferDetails;
 export const getIsOfferDetailsLoading = (state: Pick<State, NameSpace.Data>): boolean => state[NameSpace.Data].isOfferDetailsLoading;

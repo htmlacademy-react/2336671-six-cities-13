@@ -126,20 +126,20 @@ void, undefined, {
 );
 
 export const submitReviewAction = createAsyncThunk<
-  void, ReviewData, {
+  Review, ReviewData, {
     dispatch: AppDispatch;
     state: State;
     extra: AxiosInstance;
   }>(
     'data/submitReview',
-    async({id, comment, rating}, {dispatch, extra: api}) => {
-      await api.post<ReviewData>(`${APIRoute.Reviews}/${id}`, {comment, rating});
-      dispatch(fetchReviewsAction(id));
+    async({id, comment, rating}, {extra: api}) => {
+      const { data } = await api.post<Review>(`${APIRoute.Reviews}/${id}`, {comment, rating});
+      return data;
     }
   );
 
 export const addToFavoriteAction = createAsyncThunk<
-    void,
+    OfferDetails,
     {
       status: number;
       id: string;
@@ -150,9 +150,8 @@ export const addToFavoriteAction = createAsyncThunk<
       extra: AxiosInstance;
     }
 >('data/addToFavorite',
-  async({status, id}, {dispatch, extra: api}) => {
-    await api.post(`${APIRoute.Favorite}/${id}/${status}`);
-    dispatch(fetchFavoritesAction());
-    dispatch(fetchOffersAction());
+  async({status, id}, {extra: api}) => {
+    const { data } = await api.post<OfferDetails>(`${APIRoute.Favorite}/${id}/${status}`);
+    return data;
   }
 );

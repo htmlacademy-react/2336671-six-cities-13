@@ -30,6 +30,7 @@ function ReviewForm():JSX.Element {
     setSubminting(true);
     dispatch(submitReviewAction({id: params.ids as string, comment: formData.review, rating: Number(formData.rating)})).then(() => {
       setSubminting(false);
+      setFormData({rating: 0, review: ''});
     });
   };
 

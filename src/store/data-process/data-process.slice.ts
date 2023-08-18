@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { DataProcess } from '../../types/state';
-import { fetchFavoritesAction, fetchNearbyPlacesAction, fetchOfferDetailsAction, fetchOffersAction, fetchReviewsAction } from '../api-actions';
+import { addToFavoriteAction, fetchFavoritesAction, fetchNearbyPlacesAction, fetchOfferDetailsAction, fetchOffersAction, fetchReviewsAction, submitReviewAction } from '../api-actions';
 import { getSortedByDateAndCropedReviews } from '../../utils/common';
+import { ShortOffer } from '../../types/offer';
 
 const initialState: DataProcess = {
   offers: [],
@@ -14,7 +15,8 @@ const initialState: DataProcess = {
   isFavoritesLoading: false,
   isOfferDetailsLoading: false,
   isReviewsLoading: false,
-  isNearbyPlacesLoading: false
+  isNearbyPlacesLoading: false,
+  hasError: false,
 };
 
 export const dataProcess = createSlice({
@@ -29,6 +31,7 @@ export const dataProcess = createSlice({
     builder
       .addCase(fetchOffersAction.pending, (state) => {
         state.isOffersLoading = true;
+        state.hasError = false;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
@@ -36,6 +39,7 @@ export const dataProcess = createSlice({
       })
       .addCase(fetchOffersAction.rejected, (state) => {
         state.isOffersLoading = false;
+        state.hasError = true;
       })
       .addCase(fetchOfferDetailsAction.pending, (state) => {
         state.isOfferDetailsLoading = true;
@@ -77,6 +81,26 @@ export const dataProcess = createSlice({
       })
       .addCase(fetchFavoritesAction.rejected, (state) => {
         state.isFavoritesLoading = false;
+      })
+      .addCase(submitReviewAction.fulfilled, (state, action) => {
+        state.reviews.unshift(action.payload);
+      })
+      .addCase(addToFavoriteAction.fulfilled, (state, action) => {
+        const targetOffer = state.offers.find((offer) => offer.id === action.payload.id) as ShortOffer;
+        const targetNearbyOffer = state.nearbyPlaces.find((offer) => offer.id === action.payload.id) as ShortOffer;
+
+        if(action.payload.isFavorite) {
+          state.favorites.push(targetOffer);
+        } else {
+          const index = state.favorites.findIndex((offer) => offer.id === action.payload.id);
+          state.favorites.splice(index, 1);
+        }
+
+        if (targetNearbyOffer) {
+          targetNearbyOffer.isFavorite = action.payload.isFavorite;
+        }
+        state.offerDetails = action.payload;
+        targetOffer.isFavorite = action.payload.isFavorite;
       });
   },
 });
