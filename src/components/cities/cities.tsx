@@ -32,4 +32,6 @@ function Cities(): JSX.Element {
   );
 }
 
-export default memo(Cities);
+const CitiesMemo = memo(Cities);
+
+export default CitiesMemo;

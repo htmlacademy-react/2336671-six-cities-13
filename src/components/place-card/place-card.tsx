@@ -86,4 +86,6 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
   );
 }
 
-export default memo(PlaceCard);
+const PlaceCardMemo = memo(PlaceCard);
+
+export default PlaceCardMemo;

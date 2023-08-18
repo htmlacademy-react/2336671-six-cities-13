@@ -6,14 +6,14 @@ import { MapType } from '../../const';
 import { useCallback, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
-import Cities from '../../components/cities/cities';
-import Sort from '../../components/sort/sort';
 import { getSortedCityOffers } from '../../utils/common';
 import MainEmpty from '../../components/main-empty/main-empty';
 import classNames from 'classnames';
 import { getCity, getSortType } from '../../store/app-process/app-process.selectors';
 import { getError, getOffers } from '../../store/data-process/data-process.selectors';
 import ErrorScreen from '../error-screen/error-screen';
+import SortMemo from '../../components/sort/sort';
+import CitiesMemo from '../../components/cities/cities';
 
 function MainScreen(): JSX.Element {
 
@@ -50,14 +50,14 @@ function MainScreen(): JSX.Element {
       <Header />
       <main className="page__main page__main--index ">
         <h1 className="visually-hidden">Cities</h1>
-        <Cities />
+        <CitiesMemo />
         <div className="cities">
           { currentCitySsortedOffers.length ?
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{currentCitySsortedOffers.length} places to stay in {city}</b>
-                <Sort />
+                <SortMemo />
                 <PlacesList shortOffers={currentCitySsortedOffers} setCityId={handlePlaceCardHover}/>
               </section>
               <div className="cities__right-section">

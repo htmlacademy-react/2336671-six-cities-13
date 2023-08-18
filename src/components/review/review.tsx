@@ -35,4 +35,6 @@ function ReviewComment({review}: ReviewProps): JSX.Element {
   );
 }
 
-export default memo(ReviewComment);
+const ReviewCommentMemo = memo(ReviewComment);
+
+export default ReviewCommentMemo;
