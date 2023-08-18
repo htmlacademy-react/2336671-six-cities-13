@@ -60,4 +60,6 @@ function Header(): JSX.Element {
   );
 }
 
-export default memo(Header);
+const HeaderMemo = memo(Header);
+
+export default HeaderMemo;

@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/footer/footer';
-import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
 import FavoritesListGroup from '../../components/favorites-list-group/favorites-list-group';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 import { getFavorites } from '../../store/data-process/data-process.selectors';
+import HeaderMemo from '../../components/header/header';
 
 function FavoritesScreen(): JSX.Element {
 
@@ -15,7 +15,7 @@ function FavoritesScreen(): JSX.Element {
       <Helmet>
         <title>6 cities: favorites</title>
       </Helmet>
-      <Header />
+      <HeaderMemo />
       {favoriteOffers.length ?
         <main className="page__main page__main--favorites">
           <div className="page__favorites-container container">

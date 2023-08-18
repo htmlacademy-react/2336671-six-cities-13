@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import Header from '../../components/header/header';
 
 import styles from './page-not-found-screen.module.css';
+import HeaderMemo from '../../components/header/header';
 
 function PageNotFoundScreen(): JSX.Element {
   return (
     <div className="page page--favorites-empty">
-      <Header />
+      <HeaderMemo />
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container">
           <section className="favorites favorites--empty">

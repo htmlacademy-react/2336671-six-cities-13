@@ -1,4 +1,3 @@
-import Header from '../../components/header/header';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import { AppRoute, AuthStatus, MapType, OfferType } from '../../const';
@@ -16,6 +15,7 @@ import PlacesList from '../../components/places-list/places-list';
 import ScrollToTop from '../../utils/scroll';
 import { getIsNearbyPlacesLoading, getIsOfferDetailsLoading, getIsReviewsLoading, getNearbyPlaces, getOfferDetails, getReviews } from '../../store/data-process/data-process.selectors';
 import { getAuthStatus } from '../../store/user-process/user-process.selectors';
+import HeaderMemo from '../../components/header/header';
 
 type OfferGalleryProps = {
   images: string[];
@@ -147,7 +147,7 @@ function OfferScreen(): JSX.Element {
       <Helmet>
         <title>6 cities: {title}</title>
       </Helmet>
-      <Header />
+      <HeaderMemo />
 
       <main className="page__main page__main--offer">
         <section className="offer">

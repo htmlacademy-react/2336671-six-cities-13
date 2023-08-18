@@ -1,16 +1,16 @@
 
 import { Link } from 'react-router-dom';
-import Header from '../../components/header/header';
 
 import styles from './error-screen.module.css';
 import { useAppDispatch } from '../../hooks';
 import { fetchOffersAction } from '../../store/api-actions';
+import HeaderMemo from '../../components/header/header';
 
 function ErrorScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   return (
     <div className="page page--favorites-empty">
-      <Header />
+      <HeaderMemo />
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container">
           <section className="favorites favorites--empty">

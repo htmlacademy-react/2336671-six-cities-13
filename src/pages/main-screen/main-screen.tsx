@@ -1,5 +1,4 @@
 import PlacesList from '../../components/places-list/places-list';
-import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import { MapType } from '../../const';
 
@@ -14,6 +13,7 @@ import { getError, getOffers } from '../../store/data-process/data-process.selec
 import ErrorScreen from '../error-screen/error-screen';
 import SortMemo from '../../components/sort/sort';
 import CitiesMemo from '../../components/cities/cities';
+import HeaderMemo from '../../components/header/header';
 
 function MainScreen(): JSX.Element {
 
@@ -47,7 +47,7 @@ function MainScreen(): JSX.Element {
       <Helmet>
         <title>6 cities</title>
       </Helmet>
-      <Header />
+      <HeaderMemo />
       <main className="page__main page__main--index ">
         <h1 className="visually-hidden">Cities</h1>
         <CitiesMemo />
