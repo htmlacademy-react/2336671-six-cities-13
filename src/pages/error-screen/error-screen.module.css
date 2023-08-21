@@ -1,0 +1,33 @@
+.notfound__status-wrapper {
+  width:420px;
+  margin-top:16.7vh;
+  margin-right:auto;
+  margin-left:auto;
+  text-align:center;
+  background-size:60px 73px;
+  background-position:center top;
+  background-repeat:no-repeat
+}
+
+.notfound__digit {
+  font-size: 100px;
+}
+
+.notfound__status {
+  display:block;
+  margin-bottom:30px;
+  font-size:32px;
+  line-height:1.1875
+}
+
+.notfound__status-description {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0 30px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.notfound__form {
+  margin-top: 30px;
+}

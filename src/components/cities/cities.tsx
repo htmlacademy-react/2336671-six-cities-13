@@ -3,6 +3,7 @@ import { CitiesList } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCity } from '../../store/app-process/app-process.selectors';
 import { changeCity } from '../../store/app-process/app-process.slice';
+import { memo } from 'react';
 
 function Cities(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -31,4 +32,6 @@ function Cities(): JSX.Element {
   );
 }
 
-export default Cities;
+const CitiesMemo = memo(Cities);
+
+export default CitiesMemo;

@@ -30,6 +30,7 @@ function ReviewForm():JSX.Element {
     setSubminting(true);
     dispatch(submitReviewAction({id: params.ids as string, comment: formData.review, rating: Number(formData.rating)})).then(() => {
       setSubminting(false);
+      setFormData({rating: 0, review: ''});
     });
   };
 
@@ -49,6 +50,7 @@ function ReviewForm():JSX.Element {
                 checked = {+formData.rating === index}
                 onChange={handleFieldChange}
                 required
+                disabled={isSubmiting}
               />
               <label
                 htmlFor={`${index}-stars`}
@@ -85,6 +87,7 @@ function ReviewForm():JSX.Element {
         onChange={handleFieldChange}
         value={formData.review}
         required
+        disabled={isSubmiting}
       >
       </textarea>
       <div className="reviews__button-wrapper">
@@ -94,7 +97,7 @@ function ReviewForm():JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!formData.rating || formData.review.length < MIN_CHARACTER_LENGTH || formData.review.length > MAX_CHARACTER_LENGTH || isSubmiting}
+          disabled={isSubmiting || !formData.rating || formData.review.length < MIN_CHARACTER_LENGTH || formData.review.length > MAX_CHARACTER_LENGTH || isSubmiting}
         >
           {isSubmiting ? 'Sending...' : 'Submit'}
         </button>

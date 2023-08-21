@@ -1,7 +1,9 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { DataProcess } from '../../types/state';
-import { fetchFavoritesAction, fetchNearbyPlacesAction, fetchOfferDetailsAction, fetchOffersAction, fetchReviewsAction } from '../api-actions';
+import { addToFavoriteAction, fetchFavoritesAction, fetchNearbyPlacesAction, fetchOfferDetailsAction, fetchOffersAction, fetchReviewsAction, submitReviewAction } from '../api-actions';
+import { getSortedByDateAndCropedReviews } from '../../utils/common';
+import { ShortOffer } from '../../types/offer';
 
 const initialState: DataProcess = {
   offers: [],
@@ -13,28 +15,31 @@ const initialState: DataProcess = {
   isFavoritesLoading: false,
   isOfferDetailsLoading: false,
   isReviewsLoading: false,
-  isNearbyPlacesLoading: false
+  isNearbyPlacesLoading: false,
+  hasError: false,
 };
 
 export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
   reducers: {
-    setOffersLoading: (state, action: PayloadAction<boolean>) => {
-      state.isOffersLoading = action.payload;
+    removeFavorites: (state) => {
+      state.favorites = [];
     },
   },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
         state.isOffersLoading = true;
+        state.hasError = false;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
         state.isOffersLoading = false;
       })
       .addCase(fetchOffersAction.rejected, (state) => {
-        state.isOffersLoading = true;
+        state.isOffersLoading = false;
+        state.hasError = true;
       })
       .addCase(fetchOfferDetailsAction.pending, (state) => {
         state.isOfferDetailsLoading = true;
@@ -44,17 +49,18 @@ export const dataProcess = createSlice({
         state.isOfferDetailsLoading = false;
       })
       .addCase(fetchOfferDetailsAction.rejected, (state) => {
-        state.isOfferDetailsLoading = true;
+        state.isOfferDetailsLoading = false;
       })
       .addCase(fetchReviewsAction.pending, (state) => {
         state.isReviewsLoading = true;
       })
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
-        state.reviews = action.payload;
+        const reviesSortedCorped = getSortedByDateAndCropedReviews(action.payload);
+        state.reviews = reviesSortedCorped;
         state.isReviewsLoading = false;
       })
       .addCase(fetchReviewsAction.rejected, (state) => {
-        state.isReviewsLoading = true;
+        state.isReviewsLoading = false;
       })
       .addCase(fetchNearbyPlacesAction.pending, (state) => {
         state.isNearbyPlacesLoading = true;
@@ -64,7 +70,7 @@ export const dataProcess = createSlice({
         state.isNearbyPlacesLoading = false;
       })
       .addCase(fetchNearbyPlacesAction.rejected, (state) => {
-        state.isNearbyPlacesLoading = true;
+        state.isNearbyPlacesLoading = false;
       })
       .addCase(fetchFavoritesAction.pending, (state) => {
         state.isFavoritesLoading = true;
@@ -74,7 +80,22 @@ export const dataProcess = createSlice({
         state.isFavoritesLoading = false;
       })
       .addCase(fetchFavoritesAction.rejected, (state) => {
-        state.isFavoritesLoading = true;
+        state.isFavoritesLoading = false;
+      })
+      .addCase(submitReviewAction.fulfilled, (state, action) => {
+        state.reviews.unshift(action.payload);
+      })
+      .addCase(addToFavoriteAction.fulfilled, (state, action) => {
+        const targetOffer = state.offers.find((offer) => offer.id === action.payload.id) as ShortOffer;
+        const targetNearbyOffer = state.nearbyPlaces.find((offer) => offer.id === action.payload.id) as ShortOffer;
+
+        if (targetNearbyOffer) {
+          targetNearbyOffer.isFavorite = action.payload.isFavorite;
+        }
+        state.offerDetails = action.payload;
+        targetOffer.isFavorite = action.payload.isFavorite;
       });
   },
 });
+
+export const {removeFavorites} = dataProcess.actions;

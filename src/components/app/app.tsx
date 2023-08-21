@@ -33,7 +33,11 @@ function App(): JSX.Element {
           <Route path={AppRoute.Root} element={<MainScreen />} />
           <Route
             path={AppRoute.Login}
-            element={<LoginScreen />}
+            element={
+              <PrivateRoute authStatus={authStatus}>
+                <LoginScreen />
+              </PrivateRoute>
+            }
           />
           <Route
             path={AppRoute.Favorites}

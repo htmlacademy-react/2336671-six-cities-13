@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { SortType } from '../../const';
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -48,4 +48,6 @@ function Sort(): JSX.Element {
   );
 }
 
-export default Sort;
+const SortMemo = memo(Sort);
+
+export default SortMemo;

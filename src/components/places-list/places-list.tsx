@@ -1,20 +1,22 @@
-import PlaceCard from '../place-card/place-card';
+
 import type { ShortOffer } from '../../types/offer';
+import PlaceCardMemo from '../place-card/place-card';
 
 type PlacesListProps = {
   shortOffers: ShortOffer[];
-  setCityId?: React.Dispatch<React.SetStateAction<string>>;
+  setCityId?: (id: string) => void;
 }
 
 function PlacesList({shortOffers, setCityId}: PlacesListProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
       {shortOffers.map((value) => (
-        <PlaceCard
+        <PlaceCardMemo
           key={value.id}
           shortOffer={value}
           setCityId={setCityId}
-        />))}
+        />
+      ))}
     </div>
   );
 }

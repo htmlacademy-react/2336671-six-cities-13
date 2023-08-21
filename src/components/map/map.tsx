@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import leaflet from 'leaflet';
+import leaflet, { layerGroup } from 'leaflet';
 import useMap from '../../hooks/useMap';
 import { City, ShortOffer } from '../../types/offer';
 
@@ -37,14 +37,17 @@ function Map({city, offers, currentPlace, hoveredPlaceId, mapType}: MapProps): J
 
   useEffect(() => {
     if (map) {
+      const marketLayer = layerGroup().addTo(map);
+
       map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
+
       if (currentPlace) {
         leaflet.marker({
           lat: currentPlace.location.latitude,
           lng: currentPlace.location.longitude,
         }, {
-          icon:  currentMarker,
-        }).addTo(map);
+          icon: currentMarker,
+        }).addTo(marketLayer);
       }
 
       offers.forEach((point) => {
@@ -54,9 +57,14 @@ function Map({city, offers, currentPlace, hoveredPlaceId, mapType}: MapProps): J
           lng: point.location.longitude,
         }, {
           icon: (hoveredPlaceId === point.id && mapType === MapType.Cities) ? currentMarker : defaultMarker,
-        }).addTo(map);
+        }).addTo(marketLayer);
 
       });
+
+      return () => {
+        map.removeLayer(marketLayer);
+      };
+
     }
   }, [city.location.latitude, city.location.longitude, city.location.zoom, currentMarker, currentPlace, defaultMarker, hoveredPlaceId, map, mapType, offers]);
 

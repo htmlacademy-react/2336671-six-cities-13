@@ -1,22 +1,28 @@
+
 import { Link } from 'react-router-dom';
 
-import styles from './page-not-found-screen.module.css';
+import styles from './error-screen.module.css';
+import { useAppDispatch } from '../../hooks';
+import { fetchOffersAction } from '../../store/api-actions';
 import HeaderMemo from '../../components/header/header';
 
-function PageNotFoundScreen(): JSX.Element {
+function ErrorScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
   return (
     <div className="page page--favorites-empty">
       <HeaderMemo />
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container">
           <section className="favorites favorites--empty">
-            <h1 className="visually-hidden">Page Not Found</h1>
+            <h1 className="visually-hidden">Offers Not Found</h1>
             <div className={styles['notfound__status-wrapper']}>
-              <b className={styles['notfound__digit']}>404</b>
-              <b className={styles['notfound__status']}>Page Not Found</b>
-              <p className={styles['notfound__status-description']}>How did you get here?</p>
-              <p className={styles['notfound__status-description']}>This page does not exist!</p>
-              <Link className="form__submit button" to="/">Go Home</Link>
+              <b className={styles['notfound__status']}>Offers not found</b>
+
+              <button className="form__submit button" onClick={() => {
+                dispatch(fetchOffersAction());
+              }}
+              >Try again
+              </button>
             </div>
           </section>
         </div>
@@ -30,4 +36,4 @@ function PageNotFoundScreen(): JSX.Element {
   );
 }
 
-export default PageNotFoundScreen;
+export default ErrorScreen;
