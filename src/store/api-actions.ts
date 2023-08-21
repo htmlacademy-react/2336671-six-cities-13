@@ -150,8 +150,9 @@ export const addToFavoriteAction = createAsyncThunk<
       extra: AxiosInstance;
     }
 >('data/addToFavorite',
-  async({status, id}, {extra: api}) => {
+  async({status, id}, {dispatch, extra: api}) => {
     const { data } = await api.post<OfferDetails>(`${APIRoute.Favorite}/${id}/${status}`);
+    dispatch(fetchFavoritesAction());
     return data;
   }
 );

@@ -89,13 +89,6 @@ export const dataProcess = createSlice({
         const targetOffer = state.offers.find((offer) => offer.id === action.payload.id) as ShortOffer;
         const targetNearbyOffer = state.nearbyPlaces.find((offer) => offer.id === action.payload.id) as ShortOffer;
 
-        if(action.payload.isFavorite) {
-          state.favorites.push(targetOffer);
-        } else {
-          const index = state.favorites.findIndex((offer) => offer.id === action.payload.id);
-          state.favorites.splice(index, 1);
-        }
-
         if (targetNearbyOffer) {
           targetNearbyOffer.isFavorite = action.payload.isFavorite;
         }
