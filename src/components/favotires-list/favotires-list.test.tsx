@@ -14,8 +14,6 @@ describe('Component: favorites-list', () => {
 
     const favoritesPlacesContainer = screen.getByTestId(favoritesPlacesContainerTestId);
 
-    screen.debug();
-
     expect(favoritesPlacesContainer).toBeInTheDocument();
     expect(favoritesPlacesContainer.childElementCount).toBe(favorites.length);
   });

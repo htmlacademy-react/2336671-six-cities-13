@@ -14,7 +14,7 @@ function FavoritesListGroup ({favoriteOffers}: FavoritesListGroupProps): JSX.Ele
   const dispatch = useAppDispatch();
 
   return (
-    <ul className="favorites__list">
+    <ul className="favorites__list" data-testid="favorites-list-container">
       {cities.map((city) => (
         <li className="favorites__locations-items" key={city}>
           <div className="favorites__locations locations locations--current">

@@ -6,7 +6,6 @@ describe('Component: favorites-empty', () => {
     const expectedText = 'Nothing yet saved.';
 
     render(<FavoritesEmpty/>);
-    screen.debug();
 
     expect(screen.getByText(expectedText)).toBeInTheDocument();
   });

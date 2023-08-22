@@ -26,7 +26,7 @@ function FavoriteCard ({offer}: FavoriteCardProps): JSX.Element {
   );
 
   return(
-    <article className="favorites__card place-card">
+    <article className="favorites__card place-card" data-testid="favorites-card">
       {isPremium && <PlaceCardMark />}
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>

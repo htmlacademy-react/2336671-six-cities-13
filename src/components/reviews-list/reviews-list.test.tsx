@@ -9,7 +9,6 @@ describe('Componetn: Main Empty', () => {
     const reviewListContainerTestId = 'review-list-container';
 
     render(<ReviewsList reviews={reviews} />);
-    screen.debug();
 
     expect(screen.getByTestId(reviewListContainerTestId)).toBeInTheDocument();
     expect(screen.getByTestId(reviewListContainerTestId).childElementCount).toBe(reviews.length);

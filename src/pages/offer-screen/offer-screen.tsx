@@ -16,83 +16,9 @@ import ScrollToTop from '../../utils/scroll';
 import { getIsNearbyPlacesLoading, getIsOfferDetailsLoading, getIsReviewsLoading, getNearbyPlaces, getOfferDetails, getReviews } from '../../store/data-process/data-process.selectors';
 import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 import HeaderMemo from '../../components/header/header';
-
-type OfferGalleryProps = {
-  images: string[];
-}
-
-type OfferInsideListProps = {
-  goods: string[];
-}
-
-type HostUserProps = {
-  host: {
-    isPro: boolean;
-    name: string;
-    avatarUrl: string;
-  };
-}
-
-function OfferGallery({images}: OfferGalleryProps): JSX.Element {
-  return (
-    <div className="offer__gallery">
-      {images.map((value) => (
-        <div className="offer__image-wrapper" key={value}>
-          <img className="offer__image" src={value} alt="Photo studio"/>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function OfferMark(): JSX.Element {
-  return (
-    <div className="offer__mark">
-      <span>Premium</span>
-    </div>
-  );
-}
-
-function OfferInsideList({goods}: OfferInsideListProps): JSX.Element {
-  return (
-    <ul className="offer__inside-list">
-      {goods.map((value) => (
-        <li className="offer__inside-item" key={value}>
-          {value}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function ProHost(): JSX.Element {
-  return (
-    <span className="offer__user-status">
-      Pro
-    </span>
-  );
-}
-
-function HostUser({host}: HostUserProps): JSX.Element {
-
-  let hostUserClass = classNames('offer__avatar-wrapper', 'user__avatar-wrapper');
-
-  if (host.isPro) {
-    hostUserClass += ' offer__avatar-wrapper--pro';
-  }
-
-  return (
-    <div className="offer__host-user user">
-      <div className={hostUserClass}>
-        <img className="offer__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar"/>
-      </div>
-      <span className="offer__user-name">
-        {host.name}
-      </span>
-      {host.isPro && <ProHost />}
-    </div>
-  );
-}
+import OfferGallery from '../../components/offer-gallery/offer-gallery';
+import OfferInsideList from '../../components/offer-inside-list/offer-inside-list';
+import HostUser from '../../components/host-user/host-user';
 
 function OfferScreen(): JSX.Element {
 
@@ -156,7 +82,11 @@ function OfferScreen(): JSX.Element {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {isPremium && <OfferMark />}
+              {isPremium && (
+                <div className="offer__mark">
+                  <span>Premium</span>
+                </div>
+              )}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
                   {title}
