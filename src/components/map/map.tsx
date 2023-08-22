@@ -7,8 +7,8 @@ import 'leaflet/dist/leaflet.css';
 import { MapType } from '../../const';
 import type { OfferDetails } from '../../types/offer-details';
 
-const URL_DEFAULT_MARKER = 'markup/img/pin.svg';
-const URL_CURRENT_MARKER = 'markup/img/pin-active.svg';
+const URL_DEFAULT_MARKER = '/img/pin.svg';
+const URL_CURRENT_MARKER = '/img/pin-active.svg';
 
 type MapProps = {
   city: City;

@@ -21,6 +21,6 @@ export const getSortedCityOffers = (city: string, allOffers: ShortOffer[], sortT
   }
 };
 
-export const getSortedByDateAndCropedReviews = (reviews: Review[]):Review[] => reviews.sort((a, b) => Date.parse(b.date) - Date.parse(a.date)).slice(0, 10);
+export const getSortedByDateAndCropedReviews = (reviews: Review[]):Review[] => [...reviews].sort((a, b) => Date.parse(b.date) - Date.parse(a.date)).slice(0, 10);
 
 export const getRandomArrayElement = (array: string[]) => array[Math.floor(Math.random() * array.length)];

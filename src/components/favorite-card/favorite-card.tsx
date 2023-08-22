@@ -1,10 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { AppRoute, AuthStatus, OfferType } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { Link } from 'react-router-dom';
+import { OfferType } from '../../const';
+import { useAppDispatch } from '../../hooks';
 import { addToFavoriteAction } from '../../store/api-actions';
 import { Favorite } from '../../types/favorite';
 import { calcRating } from '../../utils/common';
-import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 
 type FavoriteCardProps = {
   offer: Favorite;
@@ -15,16 +14,9 @@ function FavoriteCard ({offer}: FavoriteCardProps): JSX.Element {
   const {previewImage, price, title, type, isPremium, rating, isFavorite, id} = offer;
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  const authStatus = useAppSelector(getAuthStatus);
 
   const handleFavoriteClick = () => {
-    if (authStatus === AuthStatus.Auth) {
-      dispatch(addToFavoriteAction({status: (!isFavorite ? 1 : 0), id: id}));
-      return;
-    }
-    navigate(AppRoute.Login);
+    dispatch(addToFavoriteAction({status: (!isFavorite ? 1 : 0), id: id}));
   };
 
   const PlaceCardMark = (): JSX.Element => (
@@ -37,7 +29,7 @@ function FavoriteCard ({offer}: FavoriteCardProps): JSX.Element {
     <article className="favorites__card place-card">
       {isPremium && <PlaceCardMark />}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <Link to={`/offers/${id}`}>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image"/>
         </Link>
       </div>
@@ -65,7 +57,7 @@ function FavoriteCard ({offer}: FavoriteCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offers/${id}`}>
+          <Link to={`/offer/${id}`}>
             {title}
           </Link>
         </h2>

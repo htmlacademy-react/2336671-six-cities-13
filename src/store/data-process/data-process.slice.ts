@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { DataProcess } from '../../types/state';
-import { addToFavoriteAction, fetchFavoritesAction, fetchNearbyPlacesAction, fetchOfferDetailsAction, fetchOffersAction, fetchReviewsAction, submitReviewAction } from '../api-actions';
-import { getSortedByDateAndCropedReviews } from '../../utils/common';
+import { addToFavoriteAction, fetchFavoritesAction, fetchNearbyPlacesAction, fetchOfferDetailsAction, fetchOffersAction, fetchReviewsAction } from '../api-actions';
 import { ShortOffer } from '../../types/offer';
 
 const initialState: DataProcess = {
@@ -55,8 +54,7 @@ export const dataProcess = createSlice({
         state.isReviewsLoading = true;
       })
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
-        const reviesSortedCorped = getSortedByDateAndCropedReviews(action.payload);
-        state.reviews = reviesSortedCorped;
+        state.reviews = action.payload;
         state.isReviewsLoading = false;
       })
       .addCase(fetchReviewsAction.rejected, (state) => {
@@ -82,9 +80,6 @@ export const dataProcess = createSlice({
       .addCase(fetchFavoritesAction.rejected, (state) => {
         state.isFavoritesLoading = false;
       })
-      .addCase(submitReviewAction.fulfilled, (state, action) => {
-        state.reviews.unshift(action.payload);
-      })
       .addCase(addToFavoriteAction.fulfilled, (state, action) => {
         const targetOffer = state.offers.find((offer) => offer.id === action.payload.id) as ShortOffer;
         const targetNearbyOffer = state.nearbyPlaces.find((offer) => offer.id === action.payload.id) as ShortOffer;
@@ -92,7 +87,10 @@ export const dataProcess = createSlice({
         if (targetNearbyOffer) {
           targetNearbyOffer.isFavorite = action.payload.isFavorite;
         }
-        state.offerDetails = action.payload;
+        if(state.offerDetails?.id === action.payload.id) {
+          state.offerDetails = action.payload;
+        }
+
         targetOffer.isFavorite = action.payload.isFavorite;
       });
   },

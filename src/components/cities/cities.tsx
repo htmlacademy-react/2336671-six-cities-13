@@ -15,11 +15,14 @@ function Cities(): JSX.Element {
   return (
     <div className="tabs">
       <section className="locations container">
-        <ul className="locations__list tabs__list">
+        <ul className="locations__list tabs__list" data-testid="cities-container">
           {CitiesList.map((value) => (
-            <li className="locations__item" key={value} onClick={() => {
-              handleCityClick(value);
-            }}
+            <li
+              className="locations__item"
+              key={value} onClick={() => {
+                handleCityClick(value);
+              }}
+              data-testid="city-value"
             >
               <Link className={`locations__item-link tabs__item ${city === value ? 'tabs__item--active' : ''}`} to="/">
                 <span>{value}</span>

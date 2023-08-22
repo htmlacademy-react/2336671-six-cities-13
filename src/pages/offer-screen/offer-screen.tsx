@@ -1,7 +1,7 @@
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import { AppRoute, AuthStatus, MapType, OfferType } from '../../const';
-import { calcRating } from '../../utils/common';
+import { calcRating, getSortedByDateAndCropedReviews } from '../../utils/common';
 import classNames from 'classnames';
 import { Helmet } from 'react-helmet-async';
 import Map from '../../components/map/map';
@@ -102,7 +102,7 @@ function OfferScreen(): JSX.Element {
 
   const offerDetails = useAppSelector(getOfferDetails);
   const reviews = useAppSelector(getReviews);
-
+  const croppedReviews = getSortedByDateAndCropedReviews(reviews);
   const nearbyPlaces = useAppSelector(getNearbyPlaces);
   const authStatus = useAppSelector(getAuthStatus);
   const isOfferDetailsLoading = useAppSelector(getIsOfferDetailsLoading);
@@ -180,10 +180,10 @@ function OfferScreen(): JSX.Element {
                   {OfferType[type as keyof typeof OfferType]}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {bedrooms} Bedrooms
+                  {bedrooms} {bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {maxAdults} adults
+                  Max {maxAdults} {maxAdults === 1 ? 'adult' : 'adults'}
                 </li>
               </ul>
               <div className="offer__price">
@@ -205,7 +205,7 @@ function OfferScreen(): JSX.Element {
               </div>
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewsList reviews={reviews} />
+                <ReviewsList reviews={croppedReviews} />
                 {authStatus === AuthStatus.Auth && <ReviewForm />}
               </section>
             </div>
