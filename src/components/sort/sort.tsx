@@ -22,7 +22,7 @@ function Sort(): JSX.Element {
   }
 
   return (
-    <form className="places__sorting" action="#" method="get">
+    <form className="places__sorting" action="#" method="get" data-testid="sort-container">
       <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex={0} onClick={handleSortClick}>
         {currentSortType}
