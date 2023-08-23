@@ -36,7 +36,7 @@ function ReviewForm():JSX.Element {
 
   function Stars(): JSX.Element {
     return (
-      <div className="reviews__rating-form form__rating">
+      <div className="reviews__rating-form form__rating" data-testid="rating-container">
         {StarsRating.map((value, i) => {
           const index = StarsRating.length - i;
           return (
@@ -51,6 +51,7 @@ function ReviewForm():JSX.Element {
                 onChange={handleFieldChange}
                 required
                 disabled={isSubmiting}
+                data-testid="rating-element"
               />
               <label
                 htmlFor={`${index}-stars`}
@@ -74,6 +75,7 @@ function ReviewForm():JSX.Element {
       action="#"
       method="post"
       onSubmit={handleSubmit}
+      data-testid="review-container"
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <Stars />
@@ -88,6 +90,7 @@ function ReviewForm():JSX.Element {
         value={formData.review}
         required
         disabled={isSubmiting}
+        data-testid="review-element"
       >
       </textarea>
       <div className="reviews__button-wrapper">
