@@ -51,6 +51,7 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
       className="cities__card place-card"
       onMouseEnter={() => handleMouseEnter(id)}
       onMouseLeave={handleMouseLeave}
+      data-testid='place-card-container'
     >
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
