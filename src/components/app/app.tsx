@@ -31,14 +31,7 @@ function App(): JSX.Element {
       <HistoryRouter history={browserHistory}>
         <Routes>
           <Route path={AppRoute.Root} element={<MainScreen />} />
-          <Route
-            path={AppRoute.Login}
-            element={
-              <PrivateRoute authStatus={authStatus}>
-                <LoginScreen />
-              </PrivateRoute>
-            }
-          />
+          <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route
             path={AppRoute.Favorites}
             element={

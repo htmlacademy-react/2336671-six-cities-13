@@ -4,7 +4,7 @@ import { Review } from '../types/review';
 
 const MAX_STARS = 5;
 
-export const calcRating = (rating: number): number => Math.round(rating) / MAX_STARS * 100;
+export const calculateRating = (rating: number): number => Math.round(rating) / MAX_STARS * 100;
 
 export const getSortedCityOffers = (city: string, allOffers: ShortOffer[], sortType: SortType): ShortOffer[] => {
   const currentCityOffers = allOffers.filter((offer) => offer.city.name === city);
@@ -21,6 +21,6 @@ export const getSortedCityOffers = (city: string, allOffers: ShortOffer[], sortT
   }
 };
 
-export const getSortedByDateAndCropedReviews = (reviews: Review[]):Review[] => reviews.sort((a, b) => Date.parse(b.date) - Date.parse(a.date)).slice(0, 10);
+export const getSortedByDateAndCropedReviews = (reviews: Review[]):Review[] => [...reviews].sort((a, b) => Date.parse(b.date) - Date.parse(a.date)).slice(0, 10);
 
 export const getRandomArrayElement = (array: string[]) => array[Math.floor(Math.random() * array.length)];

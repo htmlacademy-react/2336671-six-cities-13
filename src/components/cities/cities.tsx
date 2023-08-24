@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CitiesList } from '../../const';
+import { CITIES_LIST } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCity } from '../../store/app-process/app-process.selectors';
 import { changeCity } from '../../store/app-process/app-process.slice';
@@ -15,11 +15,14 @@ function Cities(): JSX.Element {
   return (
     <div className="tabs">
       <section className="locations container">
-        <ul className="locations__list tabs__list">
-          {CitiesList.map((value) => (
-            <li className="locations__item" key={value} onClick={() => {
-              handleCityClick(value);
-            }}
+        <ul className="locations__list tabs__list" data-testid="cities-container">
+          {CITIES_LIST.map((value) => (
+            <li
+              className="locations__item"
+              key={value} onClick={() => {
+                handleCityClick(value);
+              }}
+              data-testid="city-value"
             >
               <Link className={`locations__item-link tabs__item ${city === value ? 'tabs__item--active' : ''}`} to="/">
                 <span>{value}</span>

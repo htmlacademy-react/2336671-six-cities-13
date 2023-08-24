@@ -126,15 +126,15 @@ void, undefined, {
 );
 
 export const submitReviewAction = createAsyncThunk<
-  Review, ReviewData, {
+  void, ReviewData, {
     dispatch: AppDispatch;
     state: State;
     extra: AxiosInstance;
   }>(
     'data/submitReview',
-    async({id, comment, rating}, {extra: api}) => {
-      const { data } = await api.post<Review>(`${APIRoute.Reviews}/${id}`, {comment, rating});
-      return data;
+    async({id, comment, rating}, {dispatch,extra: api}) => {
+      await api.post<Review>(`${APIRoute.Reviews}/${id}`, {comment, rating});
+      dispatch(fetchReviewsAction(id));
     }
   );
 

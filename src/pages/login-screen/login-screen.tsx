@@ -1,18 +1,20 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { FormEvent, useRef } from 'react';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { getRandomArrayElement } from '../../utils/common';
-import { CitiesList } from '../../const';
+import { AppRoute, AuthStatus, CITIES_LIST } from '../../const';
 import { changeCity } from '../../store/app-process/app-process.slice';
+import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 
 function LoginScreen(): JSX.Element {
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const loginRandomCity = getRandomArrayElement(CitiesList);
+  const loginRandomCity = getRandomArrayElement(CITIES_LIST);
+  const authStatus = useAppSelector(getAuthStatus);
 
   const dispatch = useAppDispatch();
 
@@ -26,6 +28,10 @@ function LoginScreen(): JSX.Element {
       }));
     }
   };
+
+  if (authStatus === AuthStatus.Auth) {
+    return (<Navigate to={AppRoute.Root}/>);
+  }
 
   return (
     <div className="page page--gray page--login">
@@ -61,6 +67,7 @@ function LoginScreen(): JSX.Element {
                   name="email"
                   placeholder="Email"
                   required
+                  data-testid="emailElement"
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -72,6 +79,7 @@ function LoginScreen(): JSX.Element {
                   name="password"
                   placeholder="Password"
                   required
+                  data-testid="passwordElement"
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>

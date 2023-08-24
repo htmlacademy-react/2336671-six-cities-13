@@ -9,7 +9,7 @@ type PlacesListProps = {
 
 function PlacesList({shortOffers, setCityId}: PlacesListProps): JSX.Element {
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div className="cities__places-list places__list tabs__content" data-testid="places-list-container">
       {shortOffers.map((value) => (
         <PlaceCardMemo
           key={value.id}

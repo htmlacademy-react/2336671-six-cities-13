@@ -7,8 +7,8 @@ type ReviewsListProps = {
 
 function ReviewsList({reviews}: ReviewsListProps): JSX.Element {
   return (
-    <ul className="reviews__list">
-      {reviews.map((value) => <ReviewCommentMemo key={value.id} review={value} />)}
+    <ul className="reviews__list" data-testid="review-list-container">
+      {reviews.map((value) => <ReviewCommentMemo key={value.id} review={value}/>)}
     </ul>
   );
 }
