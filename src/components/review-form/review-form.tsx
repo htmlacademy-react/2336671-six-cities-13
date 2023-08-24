@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
-import { StarsRating } from '../../const';
+import { STARS_RATING } from '../../const';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { submitReviewAction } from '../../store/api-actions';
@@ -37,8 +37,8 @@ function ReviewForm():JSX.Element {
   function Stars(): JSX.Element {
     return (
       <div className="reviews__rating-form form__rating" data-testid="rating-container">
-        {StarsRating.map((value, i) => {
-          const index = StarsRating.length - i;
+        {STARS_RATING.map((value, i) => {
+          const index = STARS_RATING.length - i;
           return (
             <Fragment key={index}>
               <input

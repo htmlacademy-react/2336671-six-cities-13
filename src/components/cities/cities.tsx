@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CitiesList } from '../../const';
+import { CITIES_LIST } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCity } from '../../store/app-process/app-process.selectors';
 import { changeCity } from '../../store/app-process/app-process.slice';
@@ -16,7 +16,7 @@ function Cities(): JSX.Element {
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list" data-testid="cities-container">
-          {CitiesList.map((value) => (
+          {CITIES_LIST.map((value) => (
             <li
               className="locations__item"
               key={value} onClick={() => {

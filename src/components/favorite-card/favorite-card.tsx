@@ -3,7 +3,7 @@ import { OfferType } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { addToFavoriteAction } from '../../store/api-actions';
 import { Favorite } from '../../types/favorite';
-import { calcRating } from '../../utils/common';
+import { calculateRating } from '../../utils/common';
 
 type FavoriteCardProps = {
   offer: Favorite;
@@ -52,7 +52,7 @@ function FavoriteCard ({offer}: FavoriteCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${calcRating(rating)}%`}}></span>
+            <span style={{width: `${calculateRating(rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

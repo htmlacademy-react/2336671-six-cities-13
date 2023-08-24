@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import ReviewForm from './review-form';
 import { withStore } from '../../utils/mock-component';
-import { StarsRating } from '../../const';
+import { STARS_RATING } from '../../const';
 import userEvent from '@testing-library/user-event';
 
 describe('Component: Login Screen', () => {
@@ -18,7 +18,7 @@ describe('Component: Login Screen', () => {
 
     expect(screen.getByTestId(reviewContainerTestId)).toBeInTheDocument();
     expect(screen.getByTestId(ratingContainerTestId)).toBeInTheDocument();
-    expect(screen.getAllByTestId(ratingElementTestId).length).toBe(StarsRating.length);
+    expect(screen.getAllByTestId(ratingElementTestId).length).toBe(STARS_RATING.length);
     expect(screen.getByTestId(reviewTestId)).toBeInTheDocument();
   });
 

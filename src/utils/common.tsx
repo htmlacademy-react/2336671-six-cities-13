@@ -4,7 +4,7 @@ import { Review } from '../types/review';
 
 const MAX_STARS = 5;
 
-export const calcRating = (rating: number): number => Math.round(rating) / MAX_STARS * 100;
+export const calculateRating = (rating: number): number => Math.round(rating) / MAX_STARS * 100;
 
 export const getSortedCityOffers = (city: string, allOffers: ShortOffer[], sortType: SortType): ShortOffer[] => {
   const currentCityOffers = allOffers.filter((offer) => offer.city.name === city);

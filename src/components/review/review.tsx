@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import type { Review } from '../../types/review';
-import { calcRating } from '../../utils/common';
+import { calculateRating } from '../../utils/common';
 
 type ReviewProps = {
   review: Review;
@@ -22,7 +22,7 @@ function ReviewComment({review}: ReviewProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars" data-testid="review-rating">
-            <span style={{width: `${calcRating(rating)}%`}}></span>
+            <span style={{width: `${calculateRating(rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import CitiesMemo from './cities';
-import { CitiesList, SortType } from '../../const';
+import { CITIES_LIST, SortType } from '../../const';
 import { withHistory, withStore } from '../../utils/mock-component';
 
 describe('Component: Cities', () => {
@@ -23,6 +23,6 @@ describe('Component: Cities', () => {
     const cityValues = screen.getAllByTestId(citiValueTestId);
 
     expect(citiesContainer).toBeInTheDocument();
-    expect(cityValues.length).toBe(CitiesList.length);
+    expect(cityValues.length).toBe(CITIES_LIST.length);
   });
 });

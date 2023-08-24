@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import FavoritesList from '../favotires-list/favotires-list';
+import FavoritesList from '../favorites-list/favorites-list';
 import { Favorite } from '../../types/favorite';
 import { useAppDispatch } from '../../hooks';
 import { changeCity } from '../../store/app-process/app-process.slice';

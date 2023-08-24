@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthStatus, OfferType } from '../../const';
 import type { ShortOffer } from '../../types/offer';
-import { calcRating } from '../../utils/common';
+import { calculateRating } from '../../utils/common';
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addToFavoriteAction } from '../../store/api-actions';
@@ -74,7 +74,7 @@ function PlaceCard({shortOffer, setCityId}: PlaceCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${calcRating(rating)}%`}}></span>
+            <span style={{width: `${calculateRating(rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

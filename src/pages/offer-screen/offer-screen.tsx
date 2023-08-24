@@ -1,7 +1,7 @@
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import { AppRoute, AuthStatus, MapType, OfferType } from '../../const';
-import { calcRating, getSortedByDateAndCropedReviews } from '../../utils/common';
+import { calculateRating, getSortedByDateAndCropedReviews } from '../../utils/common';
 import classNames from 'classnames';
 import { Helmet } from 'react-helmet-async';
 import Map from '../../components/map/map';
@@ -100,7 +100,7 @@ function OfferScreen(): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: `${calcRating(rating)}%`}}></span>
+                  <span style={{width: `${calculateRating(rating)}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{rating}</span>

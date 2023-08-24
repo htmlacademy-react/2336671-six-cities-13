@@ -21,7 +21,7 @@ export enum AuthStatus {
   Unknown = 'UNKNOWN'
 }
 
-export const StarsRating = [
+export const STARS_RATING = [
   'perfect',
   'good',
   'not bad',
@@ -43,7 +43,7 @@ export enum SortType {
   Top = 'Top rated first'
 }
 
-export const CitiesList = [
+export const CITIES_LIST = [
   'Paris',
   'Cologne',
   'Brussels',
