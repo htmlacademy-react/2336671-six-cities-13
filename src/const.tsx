@@ -21,7 +21,7 @@ export enum AuthStatus {
   Unknown = 'UNKNOWN'
 }
 
-export const STARS_RATING = [
+export const STARS_LIST = [
   'perfect',
   'good',
   'not bad',

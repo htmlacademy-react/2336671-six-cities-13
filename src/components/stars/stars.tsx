@@ -1,5 +1,5 @@
 import { ChangeEvent, Fragment } from 'react';
-import { STARS_RATING } from '../../const';
+import { STARS_LIST } from '../../const';
 
 type StarsProps = {
   formData: {
@@ -13,8 +13,8 @@ type StarsProps = {
 function Stars({ formData, handleFieldChange, isSubmitting }: StarsProps): JSX.Element {
   return (
     <div className="reviews__rating-form form__rating" data-testid="rating-container">
-      {STARS_RATING.map((value, i) => {
-        const index = STARS_RATING.length - i;
+      {STARS_LIST.map((value, i) => {
+        const index = STARS_LIST.length - i;
         return (
           <Fragment key={index}>
             <input
