@@ -12,7 +12,7 @@ function ReviewForm():JSX.Element {
   const params = useParams();
   const dispatch = useAppDispatch();
 
-  const [isSubmitting, setSubminting] = useState(false);
+  const [isSubmitting, setSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     rating: 0,
@@ -20,16 +20,15 @@ function ReviewForm():JSX.Element {
   });
 
   const handleFieldChange = useCallback((evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    evt.preventDefault();
     const {name, value} = evt.target;
     setFormData({...formData, [name]: value });
   }, [formData]);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    setSubminting(true);
+    setSubmitting(true);
     dispatch(submitReviewAction({id: params.ids as string, comment: formData.review, rating: Number(formData.rating)})).then(() => {
-      setSubminting(false);
+      setSubmitting(false);
       setFormData({rating: 0, review: ''});
     });
   };
